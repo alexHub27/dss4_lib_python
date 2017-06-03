@@ -24,4 +24,12 @@ def get_schema(lst):
 def make_date_from_timedelta(d=1):
     """ Build a string from a given number of days prior today. """
     d_ = dt.datetime.now() - dt.timedelta(days=d)
-    return dt.datetime.strftime(d_,"%Y-%m-%d") 
+    return dt.datetime.strftime(d_,"%Y-%m-%d")
+
+def pooling(fct,lst,nb_pool=10):
+    """Open different pools for the same function. Return the output of each pool in a list"""
+    p = Pool(nb_pool)
+    infos = p.map(fct,lst)
+    p.terminate()
+    p.join()
+    return infos
