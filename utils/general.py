@@ -11,9 +11,9 @@ def merge_two_dicts(x, y):
     z.update(y)
     return z
 
-def get_soup(link):
+def get_soup(link,headerName):
     """ The deaders have to be defined as a custom variables at the project level. """
-    headers = json.loads(dk.get_custom_variables()["headers"])
+    headers = json.loads(dk.get_custom_variables()[headerName])
     r = rq.get(link,headers=headers)
     soup = Soup(r.text,'html.parser')
     return soup
