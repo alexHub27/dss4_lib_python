@@ -11,10 +11,13 @@ def merge_two_dicts(x, y):
     z.update(y)
     return z
 
-def get_soup(link,headerName):
+def get_soup(link,headerName,params=None,verify=None):
     """ The deaders have to be defined as a custom variables at the project level. """
     headers = json.loads(dk.get_custom_variables()[headerName])
-    r = rq.get(link,headers=headers)
+    if not verify :
+        r = rq.get(link,headers=headers,params=params)
+    else:
+        r = rq.get(link,headers=headers,params=params,verify=verify)
     soup = Soup(r.text,'html.parser')
     return soup
 
