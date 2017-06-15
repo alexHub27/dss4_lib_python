@@ -1,3 +1,5 @@
+import numpy as np 
+
 def poiss_team(skills,nb_goals):
     if skills:
         return np.power(skills,nb_goals)*np.exp(-skills)/np.math.factorial(nb_goals)
