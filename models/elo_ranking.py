@@ -70,3 +70,18 @@ class Game(object):
         self.clubA.new_rank = self.clubA.rank + self.pointA
         return 1
     
+    def write_rankings(self):
+        return {"match_id":self.match_id
+               ,"home_goal":self.clubH.scored
+               ,"away_goal":self.clubA.scored 
+               ,"home_id":self.clubH.club_id
+               ,"away_id":self.clubA.club_id
+               ,"home_rank":self.clubH.rank
+               ,"away_rank":self.clubA.rank
+               ,"home_new_rank":self.clubH.new_rank
+               ,"away_new_rank":self.clubA.new_rank
+               ,"point_home":self.pointH
+               ,"proba_home":self.probaH
+               ,"proba_away":self.probaA
+               ,"point_away":self.pointA}
+    
