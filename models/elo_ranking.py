@@ -45,14 +45,7 @@ class Game(object):
         self.probaH = 1.0/(1+np.power(10,(self.clubA.rank - (self.clubH.rank))/400.0))  
         self.probaA = 1.0 - self.probaH
         return 1
-    
-    def get_point(self):
-        self.get_proba()
 
-        self.pointH = self.level * self.fct() *(self.clubH.perf - self.probaH) #self.H
-        self.pointA = self.level * self.fct() *(self.clubA.perf - self.probaA) #self.A
-        return 1
-    
     def fct(self):
         """ Weighting the result so that the defeat is not lienar (8-0 or 6-0 is roughly the same : you got destroyed) """
         if self.avg==0 or np.abs(self.avg) == 1:
@@ -61,3 +54,19 @@ class Game(object):
             return 3/2.0
         else :
             return (11+np.abs(self.avg))/8.0
+        
+    def get_point(self):
+        self.get_proba()
+
+        self.pointH = self.level * self.fct() *(self.clubH.perf - self.probaH) 
+        self.pointA = self.level * self.fct() *(self.clubA.perf - self.probaA) 
+        return 1
+    
+    def update_club_rank(self):
+        self.get_res_game()
+        self.get_point()
+
+        self.clubH.new_rank = self.clubH.rank + self.pointH
+        self.clubA.new_rank = self.clubA.rank + self.pointA
+        return 1
+    
