@@ -40,12 +40,3 @@ where club_id = '{0}' and match_dt < '{1}') tmp
 where rk <=10
 """.format(club_id,match_dt)
 
-def get_club_histo_simple(club_id,match_dt,data=data):
-    executor = dk.core.sql.SQLExecutor2(dataset=data)
-    mess = footbet_lstm_simple(club_id,match_dt)
-    return executor.query_to_df(mess)
-
-def get_club_histo_advanced(club_id,match_dt,data=data):
-    executor = dk.core.sql.SQLExecutor2(dataset=data)
-    mess = footbet_lstm_advanced(club_id,match_dt)
-    return executor.query_to_df(mess)
