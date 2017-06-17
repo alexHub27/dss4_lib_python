@@ -42,11 +42,9 @@ where rk <=10
 """.format(club_id,match_dt)
 
 def footbet_lstm_simple2(club_id,match_dt):
-    return """select home_win,home_draw,home_defeat,away_win,away_draw,away_defeat /*adv_rank,*/
+    return """select home_win,home_draw,home_defeat,away_win,away_draw,away_defeat
 from
-(select
-       case when club_id = home_id then away_rank else home_rank end as adv_rank
-       
+(select club_id,match_dt,home_goal,away_goal
       ,case when club_id = home_id and home_goal > away_goal then home_goal-away_goal else 0 end as home_win
       ,case when club_id = home_id and home_goal = away_goal then 1 else 0 end as home_draw
       ,case when club_id = home_id and home_goal < away_goal then away_goal-home_goal else 0 end as home_defeat
@@ -61,6 +59,7 @@ from "DATAIMPORT_foot_games_p"
 
 where club_id = '{0}' and match_dt < '{1}') tmp
 where rk <=10
+order by match_dt
 """.format(club_id,match_dt)
 
 
