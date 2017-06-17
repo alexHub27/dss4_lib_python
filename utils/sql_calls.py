@@ -34,6 +34,6 @@ from
     
 from "DATAIMPORT_foot_games_p"
 
-where club_id = '{0}' and match_dt < '{1}}') tmp
+where club_id = '{0}' and match_dt < '{1}') tmp
 where rk <=10
 """.format(club_id,match_dt)
