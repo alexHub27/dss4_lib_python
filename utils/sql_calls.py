@@ -43,7 +43,7 @@ where rk <=10
 """.format(club_id,match_dt)
 
 def footbet_lstm_simple2(club_id,match_dt):
-    """ Return a (10,6) Matrix"""
+    """ Return a (10,8) Matrix"""
     return """select home_rank,away_rank,home_win,home_draw,home_defeat,away_win,away_draw,away_defeat
 from
 (select club_id,match_dt,home_goal,away_goal
