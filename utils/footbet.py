@@ -25,7 +25,7 @@ def get_club_histo_simple2(club_id,match_dt,data):
     mess = footbet_lstm_simple2(club_id,match_dt)
     return executor.query_to_df(mess)
 
-def get_club_histo_elo_home(home_flag,club_id,match_dt,data):
+def get_club_histo_elo_home(home_flag,club_id,match_dt,w,data):
     executor = dk.core.sql.SQLExecutor2(dataset=data)
     mess = footbet_lstm_elo_home(home_flag,club_id,match_dt,w)
     return executor.query_to_df(mess)
