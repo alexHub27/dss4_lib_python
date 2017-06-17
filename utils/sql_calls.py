@@ -59,6 +59,19 @@ from "FOOTBET_elo_rank"
 where (home_id = '{0}' or away_id = '{0}') and match_dt > '01-07-2000'
 order by match_dt""".format(club_id)
 
-def footbet_lstm_elo_home()
+def footbet_lstm_elo_home(home_flag,club_id,match_dt,w,data):
+    return """ select proba_club,case when rk = 1 then 0 else cast(point_club as numeric) end as point_club,target
+from
+(select 
+       proba_home as proba_club
+      ,point_home as point_club
+      ,case when  home_goal > away_goal then 1 else 0 end as target    
+      ,row_number() over(order by match_dt desc) as rk
+      ,match_dt
+from "FOOTBET_elo_rank"
+where {0} = '{1}' and match_dt >= '{2}') tmp
+where rk <= {3}
+order by match_dt
+""".format(home_flag,club_id,match_dt,w)
 
 
