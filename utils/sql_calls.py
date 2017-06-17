@@ -67,7 +67,7 @@ order by match_dt
 
 
 def footbet_lstm_elo(club_id,match_dt):
-    """ return a (10,4) Matrix """
+    """ return a (10,9) Matrix """
     return """ select club_rank,adv_rank,club_proba 
                      ,club_point_home_win,club_point_home_draw,club_point_home_defeat
                      ,club_point_away_win,club_point_away_draw,club_point_away_defeat
