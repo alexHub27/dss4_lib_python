@@ -1,5 +1,5 @@
 def footbet_lstm_advanced(club_id,match_dt):
-    return """ select home_away_flag,club_point /*,home_rank,away_rank,home_goal,away_goal*/
+    return """ select home_away_flag,club_point,home_rank,away_rank,home_goal,away_goal
     from
     (select
            case when club_id = home_id then 1 else 0 end as home_away_flag
