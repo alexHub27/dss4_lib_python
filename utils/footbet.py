@@ -11,9 +11,9 @@ def get_target(home_goal,away_goal):
     
 def get_target_bin(home_goal,away_goal):
     if home_goal> away_goal:
-        return [1,0]
+        return 1
     else:
-        return [0,1]
+        return 0
 
 def get_club_histo_elo(club_id,match_dt,data):
     executor = dk.core.sql.SQLExecutor2(dataset=data)
