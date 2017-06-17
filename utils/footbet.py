@@ -15,7 +15,7 @@ def get_target_bin(home_goal,away_goal):
     else:
         return [0,1]
 
-def get_club_histo_simple(club_id,match_dt,data):
+def get_club_histo_elo(club_id,match_dt,data):
     executor = dk.core.sql.SQLExecutor2(dataset=data)
     mess = footbet_lstm_elo(club_id,match_dt)
     return executor.query_to_df(mess)
