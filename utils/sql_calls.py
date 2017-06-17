@@ -60,7 +60,7 @@ from
     
 from "DATAIMPORT_foot_games_p"
 
-where club_id = '{0}' and match_dt < '{1}') tmp
+where club_id = '{0}' and match_dt < '{1}' and home_rank is not null and away_rank is not null ) tmp
 where rk <=10
 order by match_dt
 """.format(club_id,match_dt)
