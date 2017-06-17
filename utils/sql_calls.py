@@ -59,4 +59,6 @@ from "FOOTBET_elo_rank"
 where (home_id = '{0}' or away_id = '{0}') and match_dt > '01-07-2000'
 order by match_dt""".format(club_id)
 
+def footbet_lstm_elo_home()
+
 
