@@ -1,5 +1,5 @@
 import dataiku as dk
-from utils.sql_calls import footbet_lstm_elo_simple,footbet_lstm_simple2,footbet_lstm_elo_home
+from utils.sql_calls import footbet_lstm_elo_simple_global,
 
 def get_target(home_goal,away_goal):
     if home_goal> away_goal:
