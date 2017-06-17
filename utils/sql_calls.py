@@ -1,26 +1,28 @@
 import dataiku as dk 
 
 
-def footbet_lstm_simple(club_id,match_dt):
-    """ Return a (10,6) Matrix"""
-    return """select home_win,home_draw,home_defeat,away_win,away_draw,away_defeat 
-from
-(select
-      case when club_id = home_id and home_goal > away_goal then 1 else 0 end as home_win
-      ,case when club_id = home_id and home_goal = away_goal then 1 else 0 end as home_draw
-      ,case when club_id = home_id and home_goal < away_goal then 1 else 0 end as home_defeat
- 
-      ,case when club_id = away_id and home_goal < away_goal then 1 else 0 end as away_win
-      ,case when club_id = away_id and home_goal = away_goal then 1 else 0 end as away_draw
-      ,case when club_id = away_id and home_goal > away_goal then 1 else 0 end as away_defeat
+def footbet_lstm_elo_simple_global(club_id):
+    return """select case when home_id = '{0}' then 1 else 0 end as home_flag
+      ,case when home_id = '{0}' then proba_home else proba_away end as proba_club
+      ,case when home_id = '{0}' then point_home else point_away end as point_club
+      ,case when (home_id = '{0}' and home_goal > away_goal) or (away_id = '{0}' and home_goal < away_goal) 
+            then 1 
+            else 0
+        end as target
+from "FOOTBET_elo_rank_club"
+where home_id = '{0}' or away_id = '{0}'
+order by match_dt""".format(club_id)
 
-      ,row_number() over(order by match_dt desc) as rk 
-    
-from "DATAIMPORT_foot_games_p"
+def footbet_lstm_elo_simple_flag(home_flag,club_id):
+    return """
+        proba_home,point_home,case when home_goal > away_goal then 1 else 0 end as target
+        from "FOOTBET_elo_rank_club"
+        where {1} = '{0}' 
+        order by match_dt""".format(club_id,home_flag)
 
-where club_id = '{0}' and match_dt < '{1}') tmp
-where rk <=10
-""".format(club_id,match_dt)
+
+########################
+
 
 def footbet_lstm_simple2(club_id,match_dt):
     """ Return a (15,9) Matrix"""
@@ -46,18 +48,26 @@ order by match_dt
 """.format(club_id,match_dt)
 
 
-def footbet_lstm_elo_simple(club_id):
-    return """select case when home_id = '{0}' then 1 else 0 end as home_flag
-      ,case when home_id = '{0}' then proba_home else proba_away end as proba_club
-      ,case when home_id = '{0}' then point_home else point_away end as point_club
-      ,case when (home_id = '{0}' and home_goal > away_goal) or (away_id = '{0}' and home_goal < away_goal) 
-            then 1 
-            else 0
-        end as target
-      ,match_dt
-from "FOOTBET_elo_rank"
-where (home_id = '{0}' or away_id = '{0}') and match_dt > '01-07-2000'
-order by match_dt""".format(club_id)
+def footbet_lstm_simple(club_id,match_dt):
+    """ Return a (10,6) Matrix"""
+    return """select home_win,home_draw,home_defeat,away_win,away_draw,away_defeat 
+from
+(select
+      case when club_id = home_id and home_goal > away_goal then 1 else 0 end as home_win
+      ,case when club_id = home_id and home_goal = away_goal then 1 else 0 end as home_draw
+      ,case when club_id = home_id and home_goal < away_goal then 1 else 0 end as home_defeat
+ 
+      ,case when club_id = away_id and home_goal < away_goal then 1 else 0 end as away_win
+      ,case when club_id = away_id and home_goal = away_goal then 1 else 0 end as away_draw
+      ,case when club_id = away_id and home_goal > away_goal then 1 else 0 end as away_defeat
+
+      ,row_number() over(order by match_dt desc) as rk 
+    
+from "DATAIMPORT_foot_games_p"
+
+where club_id = '{0}' and match_dt < '{1}') tmp
+where rk <=10
+""".format(club_id,match_dt)
 
 def footbet_lstm_elo_home(home_flag,club_id,match_dt,w):
     return """ select proba_club,case when rk = 1 then 0 else cast(point_club as numeric) end as point_club,target
@@ -73,5 +83,6 @@ where {0} = '{1}' and match_dt >= '{2}') tmp
 where rk <= {3}
 order by match_dt
 """.format(home_flag,club_id,match_dt,w)
+
 
 
