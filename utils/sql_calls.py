@@ -43,8 +43,8 @@ where rk <=10
 """.format(club_id,match_dt)
 
 def footbet_lstm_simple2(club_id,match_dt):
-    """ Return a (10,8) Matrix"""
-    return """select home_rank/20.0,away_rank/20.0,home_win/1.0,home_draw/1.0,home_defeat/1.0,away_win/1.0,away_draw/1.0,away_defeat/1.0
+    """ Return a (15,9) Matrix"""
+    return """select match_day/40.0,home_rank/20.0,away_rank/20.0,home_win/1.0,home_draw/1.0,home_defeat/1.0,away_win/1.0,away_draw/1.0,away_defeat/1.0
 from
 (select club_id,match_dt,home_goal,away_goal
       ,home_rank,away_rank,match_day
@@ -61,7 +61,7 @@ from
 from "DATAIMPORT_foot_games_p"
 
 where club_id = '{0}' and match_dt < '{1}' and home_rank is not null and away_rank is not null ) tmp
-where rk <=10
+where rk <=15
 order by match_dt
 """.format(club_id,match_dt)
 
