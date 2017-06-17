@@ -1,3 +1,5 @@
+import dataiku as dk 
+
 def footbet_lstm_advanced(club_id,match_dt):
     return """ select home_away_flag,club_point,home_rank,away_rank,home_goal,away_goal
     from
@@ -37,3 +39,13 @@ from "DATAIMPORT_foot_games_p"
 where club_id = '{0}' and match_dt < '{1}') tmp
 where rk <=10
 """.format(club_id,match_dt)
+
+def get_club_histo_simple(club_id,match_dt,data=data):
+    executor = dk.core.sql.SQLExecutor2(dataset=data)
+    mess = footbet_lstm_simple(club_id,match_dt)
+    return executor.query_to_df(mess)
+
+def get_club_histo_advanced(club_id,match_dt,data=data):
+    executor = dk.core.sql.SQLExecutor2(dataset=data)
+    mess = footbet_lstm_advanced(club_id,match_dt)
+    return executor.query_to_df(mess)
