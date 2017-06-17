@@ -88,4 +88,31 @@ where rk <=10
 order by match_dt
 """.format(club_id,match_dt)
 
+def footbet_lstm_elo(club_id,match_dt):
+    """ return a (10,4) Matrix """
+    return """ select home_flag,club_rank,club_point,club_proba /*club_rank_val,*/
+from
+(select case when home_id = '{0}' then 1 else 0 end as home_flag
+      /*,case when home_id = '{0}' then home_rank else away_rank end as club_rank_val*/
+      ,case when home_id = '{0}' 
+            then (cast(home_rank as numeric)-1000)/60 
+            else (cast(away_rank as numeric)-1000)/60 
+        end as club_rank
+      /*,case when home_id = '{0}' then point_home else point_away end as club_point_val*/
+      ,case when home_id = '{0}' 
+            then (cast(point_home as numeric)-2)/8 
+            else (cast(point_away as numeric)-2)/8
+        end as club_point
+      ,case when home_id = '{0}' 
+            then (cast(proba_home as numeric) - 0.5)/0.1 
+            else (cast(proba_away as numeric) - 0.5)/0.1
+        end as club_proba
+      ,row_number() over(order by match_dt desc) as rk
+      ,match_dt
+    
+from "FOOTBET_elo_rank"
+where (home_id = '{0}' or away_id = '{0}') and match_dt < '{1}' )tmp
+where rk <= 10
+order by match_dt desc """.format(club_id,match_dt)
+
 
