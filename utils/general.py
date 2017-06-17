@@ -37,3 +37,11 @@ def pooling(fct,lst,nb_pool=10):
     p.terminate()
     p.join()
     return infos
+
+def save_model(modelName,model):
+    model_json = model.to_json()
+    with open(path+"/model.json","wb") as f:
+        f.write(model_json)
+    model.save_weights(path+"/model.h5")
+    print "Model {0} saved on disk".format(modelName)
+    return None
