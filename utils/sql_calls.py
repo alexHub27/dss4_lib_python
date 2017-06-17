@@ -9,14 +9,14 @@ def footbet_lstm_elo_global(club_id):
             then 1 
             else 0
         end as target
-from "FOOTBET_elo_rank_club"
+from "FOOTBET_elo_rank_club_train"
 where home_id = '{0}' or away_id = '{0}'
 order by match_dt""".format(club_id)
 
 def footbet_lstm_elo_flag(home_flag,club_id):
     return """
         proba_home,point_home,case when home_goal > away_goal then 1 else 0 end as target
-        from "FOOTBET_elo_rank_club"
+        from "FOOTBET_elo_rank_club_train"
         where {1} = '{0}' 
         order by match_dt""".format(club_id,home_flag)
 
