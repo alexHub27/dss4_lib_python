@@ -22,7 +22,7 @@ def get_club_histo_elo_global(club_id,data):
 
 def get_club_histo_elo_flag(home_flag,club_id,data):
     executor = dk.core.sql.SQLExecutor2(dataset=data)
-    mess = footbet_lstm_elo_simple(home_flag,club_id)
+    mess = footbet_lstm_elo_flag(home_flag,club_id)
     return executor.query_to_df(mess)
 
 
