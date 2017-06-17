@@ -73,7 +73,7 @@ def footbet_lstm_elo(club_id,match_dt):
                      ,club_point_away_win,club_point_away_draw,club_point_away_defeat
 from
 (select 
-      ,case when home_id = '{0}' 
+       case when home_id = '{0}' 
             then (cast(home_rank as numeric)-1000)/60 
             else (cast(away_rank as numeric)-1000)/60 
         end as club_rank
