@@ -46,9 +46,9 @@ from
       ,point_home as point_club
       ,row_number() over(order by match_dt desc) as rk
       ,match_dt
-from "FOOTBET_{4}"
-where (home_id = '{0}' or away_id = '{0}') and match_dt <= '{2}') tmp
-where rk <= {3}
+from "FOOTBET_{3}"
+where (home_id = '{0}' or away_id = '{0}') and match_dt <= '{1}') tmp
+where rk <= {2}
 order by match_dt
 """.format(club_id,match_dt,w,dataNm)
 
