@@ -19,6 +19,16 @@ from "FOOTBET_{1}"
 where home_id = '{0}' or away_id = '{0}'
 order by match_dt""".format(club_id,dataNm)
 
+def footbet_lstm_elo_global_test(club_id,dataNm):
+    return """select case when home_id = '{0}' then 1 else 0 end as home_flag
+      ,case when home_id = '{0}' then point_home else point_away end as point_club
+      ,case when (home_id = '{0}' and home_goal>away_goal) or (away_id = '{0}' and home_goal<=away_goal)
+            then 1 else 0 end as target
+
+from "FOOTBET_{1}"
+where home_id = '{0}' or away_id = '{0}'
+order by match_dt""".format(club_id,dataNm)
+
 def footbet_lstm_elo_form_global(club_id,match_dt,w,dataNm='elo_rank_club_test'):
     """ Supposed to be used as a batch generator for Model pre trained. Those models will then give features we will use in another
         concatenated Dense model."""
