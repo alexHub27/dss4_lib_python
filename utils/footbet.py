@@ -1,6 +1,6 @@
 import dataiku as dk
 import numpy as np
-from utils.sql_calls import footbet_lstm_elo_global,footbet_lstm_elo_flag
+from utils.sql_calls import footbet_lstm_elo_global,footbet_lstm_elo_flag,footbet_lstm_elo_global_test
 from utils.sql_calls import footbet_lstm_elo_form_flag,footbet_lstm_elo_form_global
 
 def prep_form(d,testShape):
