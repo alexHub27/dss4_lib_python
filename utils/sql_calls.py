@@ -12,13 +12,10 @@ from
       ,case when club_id = away_id and home_goal < away_goal then 1 else 0 end as away_win
       ,case when club_id = away_id and home_goal = away_goal then 1 else 0 end as away_draw
       ,case when club_id = away_id and home_goal > away_goal then 1 else 0 end as away_defeat
-
+      
       ,case when home_goal>away_goal then 1 else 0 end as target
-    
 from "DATAIMPORT_foot_games_p"
-
 where club_id = '{0}' and match_dt < '{1}') tmp
-
 """.format(club_id,match_dt)
 
 def footbet_lstm_elo_global(club_id,dataNm):
