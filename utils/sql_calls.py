@@ -21,6 +21,8 @@ def footbet_lstm_elo_flag(home_flag,club_id,dataNm):
         order by match_dt""".format(club_id,home_flag,dataNm)
 
 def footbet_lstm_elo_form_flag(home_flag,club_id,match_dt,w,dataNm='elo_rank_club_test'):
+    """ Supposed to be used as a batch generator for Model pre trained. Those models will then give features we will use in another
+        concatenated Dense model."""
     return """ select proba_club,case when rk = 1 then 0 else cast(point_club as numeric) end as point_club
 from
 (select 
