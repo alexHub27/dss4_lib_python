@@ -8,6 +8,7 @@ def prep_form(d,testShape):
         return d.values
     else:
         tmp = np.zeros(testShape)
+        w = testShape[0]
         for j in range(1,d.shape[0]+1):
             tmp[w-j]= d.values[-j]
         return tmp
