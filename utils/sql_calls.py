@@ -19,8 +19,8 @@ def footbet_lstm_elo_form_global(club_id,match_dt,w,dataNm='elo_rank_club_test')
     return """ select home_flag,proba_club,case when rk = 1 then 0 else cast(point_club as numeric) end as point_club
 from
 (select case when home_id = '{0}' then 1 else 0 end as home_flag
-      ,case when home_id = '{0}' then proba_home else proba_away as proba_club
-      ,case when home_id = '{0}' then point_home else point_away as point_club
+      ,case when home_id = '{0}' then proba_home else proba_away end as proba_club
+      ,case when home_id = '{0}' then point_home else point_away end as point_club
       ,row_number() over(order by match_dt desc) as rk
       ,match_dt
 from "FOOTBET_{3}"
