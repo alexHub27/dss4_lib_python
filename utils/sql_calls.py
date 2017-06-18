@@ -22,6 +22,14 @@ order by match_dt""".format(club_id,dataNm)
 def footbet_lstm_elo_global_test(club_id,dataNm):
     return """select
        case when home_id = '{0}' 
+            then 1
+            else 0 
+            end as flag_home   
+      ,case when home_id = '{0}' 
+            then proba_home 
+            else proba_away 
+            end as proba_club
+      ,case when home_id = '{0}' 
             then point_home 
             else point_away 
             end as point_club
