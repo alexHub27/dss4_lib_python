@@ -20,6 +20,19 @@ def footbet_lstm_elo_flag(home_flag,club_id,dataNm):
         where {1} = '{0}' 
         order by match_dt""".format(club_id,home_flag,dataNm)
 
+def footbet_lstm_elo_form_flag(home_flag,club_id,match_dt,w,dataNm='elo_rank_club_test'):
+    return """ select proba_club,case when rk = 1 then 0 else cast(point_club as numeric) end as point_club
+from
+(select 
+       proba_home as proba_club
+      ,point_home as point_club
+      ,row_number() over(order by match_dt desc) as rk
+
+from "FOOTBET_{4}"
+where {0} = '{1}' and match_dt >= '{2}') tmp
+where rk <= {3}
+order by match_dt
+""".format(home_flag,club_id,match_dt,w,dataNm)
 
 ########################
 
@@ -69,20 +82,6 @@ where club_id = '{0}' and match_dt < '{1}') tmp
 where rk <=10
 """.format(club_id,match_dt)
 
-def footbet_lstm_elo_form_flag(home_flag,club_id,match_dt,w,dataNm='elo_rank_club_test'):
-    return """ select proba_club,case when rk = 1 then 0 else cast(point_club as numeric) end as point_club,target
-from
-(select 
-       proba_home as proba_club
-      ,point_home as point_club
-      ,case when  home_goal > away_goal then 1 else 0 end as target    
-      ,row_number() over(order by match_dt desc) as rk
-      ,match_dt
-from "FOOTBET_{4}"
-where {0} = '{1}' and match_dt >= '{2}') tmp
-where rk <= {3}
-order by match_dt
-""".format(home_flag,club_id,match_dt,w,dataNm)
 
 
 
