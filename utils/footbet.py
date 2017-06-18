@@ -1,4 +1,5 @@
 import dataiku as dk
+import numpy as np
 from utils.sql_calls import footbet_lstm_elo_global,footbet_lstm_elo_flag,footbet_lstm_simple2
 from utils.sql_calls import footbet_lstm_elo_form_flag,footbet_lstm_elo_form_global
 
