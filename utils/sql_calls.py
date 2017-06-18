@@ -1,5 +1,25 @@
 import dataiku as dk 
 
+def footbet_lstm_simple(club_id,match_dt):
+    """ Return a (10,6) Matrix"""
+    return """select home_win,home_draw,home_defeat,away_win,away_draw,away_defeat,target
+from
+(select
+      case when club_id = home_id and home_goal > away_goal then 1 else 0 end as home_win
+      ,case when club_id = home_id and home_goal = away_goal then 1 else 0 end as home_draw
+      ,case when club_id = home_id and home_goal < away_goal then 1 else 0 end as home_defeat
+ 
+      ,case when club_id = away_id and home_goal < away_goal then 1 else 0 end as away_win
+      ,case when club_id = away_id and home_goal = away_goal then 1 else 0 end as away_draw
+      ,case when club_id = away_id and home_goal > away_goal then 1 else 0 end as away_defeat
+
+      ,case when home_goal>away_goal then 1 else 0 end as target
+    
+from "DATAIMPORT_foot_games_p"
+
+where club_id = '{0}' and match_dt < '{1}') tmp
+
+""".format(club_id,match_dt)
 
 def footbet_lstm_elo_global(club_id,dataNm):
     return """select case when home_id = '{0}' then 1 else 0 end as home_flag
@@ -80,28 +100,6 @@ from "DATAIMPORT_foot_games_p"
 where club_id = '{0}' and match_dt < '{1}' and home_rank is not null and away_rank is not null ) tmp
 where rk <=15
 order by match_dt
-""".format(club_id,match_dt)
-
-
-def footbet_lstm_simple(club_id,match_dt):
-    """ Return a (10,6) Matrix"""
-    return """select home_win,home_draw,home_defeat,away_win,away_draw,away_defeat 
-from
-(select
-      case when club_id = home_id and home_goal > away_goal then 1 else 0 end as home_win
-      ,case when club_id = home_id and home_goal = away_goal then 1 else 0 end as home_draw
-      ,case when club_id = home_id and home_goal < away_goal then 1 else 0 end as home_defeat
- 
-      ,case when club_id = away_id and home_goal < away_goal then 1 else 0 end as away_win
-      ,case when club_id = away_id and home_goal = away_goal then 1 else 0 end as away_draw
-      ,case when club_id = away_id and home_goal > away_goal then 1 else 0 end as away_defeat
-
-      ,row_number() over(order by match_dt desc) as rk 
-    
-from "DATAIMPORT_foot_games_p"
-
-where club_id = '{0}' and match_dt < '{1}') tmp
-where rk <=10
 """.format(club_id,match_dt)
 
 
