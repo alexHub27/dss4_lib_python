@@ -29,7 +29,7 @@ from
        proba_home as proba_club
       ,point_home as point_club
       ,row_number() over(order by match_dt desc) as rk
-
+      ,match_dt
 from "FOOTBET_{4}"
 where {0} = '{1}' and match_dt >= '{2}') tmp
 where rk <= {3}
