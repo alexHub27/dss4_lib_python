@@ -39,10 +39,10 @@ order by match_dt
 def footbet_lstm_elo_form_global(club_id,match_dt,w,dataNm='elo_rank_club_test'):
     """ Supposed to be used as a batch generator for Model pre trained. Those models will then give features we will use in another
         concatenated Dense model."""
-    return """ select proba_club,case when rk = 1 then 0 else cast(point_club as numeric) end as point_club
+    return """ select home_flag,proba_club,case when rk = 1 then 0 else cast(point_club as numeric) end as point_club
 from
-(select 
-       proba_home as proba_club
+(select select case when home_id = '{0}' then 1 else 0 end as home_flag
+      ,proba_home as proba_club
       ,point_home as point_club
       ,row_number() over(order by match_dt desc) as rk
       ,match_dt
