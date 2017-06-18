@@ -41,7 +41,7 @@ def footbet_lstm_elo_form_global(club_id,match_dt,w,dataNm='elo_rank_club_test')
         concatenated Dense model."""
     return """ select home_flag,proba_club,case when rk = 1 then 0 else cast(point_club as numeric) end as point_club
 from
-(select select case when home_id = '{0}' then 1 else 0 end as home_flag
+(select case when home_id = '{0}' then 1 else 0 end as home_flag
       ,proba_home as proba_club
       ,point_home as point_club
       ,row_number() over(order by match_dt desc) as rk
