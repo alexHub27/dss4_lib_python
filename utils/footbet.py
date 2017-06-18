@@ -5,7 +5,7 @@ from utils.sql_calls import footbet_lstm_elo_form_flag,footbet_lstm_elo_form_glo
 
 def prep_form(d,testShape):
     if d.shape == testShape:
-        return d
+        return d.values
     else:
         tmp = np.zeros(testShape)
         for j in range(1,d.shape[0]+1):
