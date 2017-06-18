@@ -1,6 +1,6 @@
 import dataiku as dk
 import numpy as np
-from utils.sql_calls import footbet_lstm_elo_global,footbet_lstm_elo_flag,footbet_lstm_simple
+from utils.sql_calls import footbet_lstm_elo_global,footbet_lstm_elo_flag
 from utils.sql_calls import footbet_lstm_elo_form_flag,footbet_lstm_elo_form_global
 
 def prep_form(d,testShape):
@@ -53,9 +53,4 @@ def get_club_histo_elo_form_global(club_id,match_dt,w,dataNm='elo_rank_club_test
     return executor.query_to_df(mess)
 
 #########################
-
-def get_club_histo_simple2(club_id,match_dt,data):
-    executor = dk.core.sql.SQLExecutor2(dataset=data)
-    mess = footbet_lstm_simple2(club_id,match_dt)
-    return executor.query_to_df(mess)
 
