@@ -5,6 +5,7 @@ import json
 from multiprocessing import Pool
 from bs4 import BeautifulSoup as Soup
 
+
 def merge_two_dicts(x, y):
     """Given two dicts, merge them into a new dict as a shallow copy."""
     z = x.copy()
@@ -45,3 +46,11 @@ def save_model(modelName,model):
     model.save_weights("{0}.h5".format(modelName))
     print "Model {0} saved on disk".format(modelName)
     return None
+
+def load_model(modNm):
+    from keras.models import model_from_json
+    with open(modNm+'.json','rb') as f:
+        modStr = f.read()
+    model = model_from_json(modStr)
+    model.load_weights(modNm+'.h5')
+    return model
