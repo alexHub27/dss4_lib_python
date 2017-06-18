@@ -31,8 +31,8 @@ def footbet_lstm_elo_global_test(club_id,dataNm):
 from "FOOTBET_{1}" l
 inner join "FOOTBET_foot_games_flat" r
 on cast(l.match_id as text) = cast(r.match_id as text)
-where home_id = '{0}' or away_id = '{0}'
-order by match_dt""".format(club_id,dataNm)
+where l.home_id = '{0}' or l.away_id = '{0}'
+order by l.match_dt""".format(club_id,dataNm)
 
 def footbet_lstm_elo_global(club_id,dataNm):
     return """select
