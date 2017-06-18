@@ -24,8 +24,7 @@ def footbet_lstm_elo_global_test(club_id,dataNm):
             else r.home_rank
             end as rank_adv
       ,r.match_day
-      ,case when (l.home_id = '{0}' and l.home_goal>l.away_goal) or (l.away_id = '{0}' and l.home_goal<l.away_goal) then 2
-            when l.home_goal=l.away_goal then 1
+      ,case when (l.home_id = '{0}' and l.home_goal>l.away_goal) or (l.away_id = '{0}' and l.home_goal<=l.away_goal) then 1
             else 0 end as target
 
 from "FOOTBET_{1}" l
