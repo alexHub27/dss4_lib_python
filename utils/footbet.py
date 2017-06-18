@@ -5,12 +5,12 @@ from utils.sql_calls import footbet_lstm_elo_form_flag,footbet_lstm_elo_form_glo
 
 def prep_form(d,testShape):
     if d.shape == testShape:
-        return d.reshape(1,testShape)
+        return d
     else:
         tmp = np.zeros(testShape)
         for j in range(1,d.shape[0]+1):
             tmp[w-j]= d.values[-j]
-        return tmp.reshape(1,testShape)
+        return tmp
     
 def get_target(home_goal,away_goal):
     if home_goal> away_goal:
