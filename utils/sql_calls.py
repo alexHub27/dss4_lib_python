@@ -25,19 +25,13 @@ def footbet_lstm_elo_global_test(club_id,dataNm):
             then 1
             else 0 
             end as flag_home 
-      ,case when home_id = '{0}' then (cast(home_rank as numeric) -1000)/60 
-            else (cast(away_rank as numeric) -1000)/60
-            end as rank_club
-      ,case when home_id = '{0}' then (cast(away_rank as numeric) -1000)/60 
-            else (cast(home_rank as numeric) -1000)/60
-            end as rank_adv 
       ,case when home_id = '{0}' 
             then proba_home 
             else proba_away 
             end as proba_club
       ,case when home_id = '{0}' 
-            then (cast(point_home as numeric) - 2.85)/9.1
-            else (cast(point_away as numeric) - 2.85)/9.1
+            then point_home 
+            else point_away 
             end as point_club
       ,case when (home_id = '{0}' and home_goal>away_goal) or (away_id = '{0}' and home_goal<=away_goal)
             then 1 else 0 end as target
