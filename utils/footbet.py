@@ -26,8 +26,9 @@ def get_club_histo_elo_flag(home_flag,club_id,dataNm):
     return executor.query_to_df(mess)
 
 def get_club_histo_elo_form_flag(home_flag,club_id,match_dt,w,dataNm='elo_rank_club_test'):
-    return None
-
+    executor = dk.core.sql.SQLExecutor2(dataset=dk.Dataset(dataNm))
+    mess = footbet_lstm_elo_flag(home_flag,club_id,match_dt,w,dataNm)
+    return executor.query_to_df(mess)
 
 #########################
 
