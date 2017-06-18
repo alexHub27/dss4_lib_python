@@ -9,14 +9,14 @@ def footbet_lstm_elo_global(club_id,dataNm):
             then 1 
             else 0
         end as target
-from "{1}"
+from "FOOTBET_{1}"
 where home_id = '{0}' or away_id = '{0}'
 order by match_dt""".format(club_id,dataNm)
 
 def footbet_lstm_elo_flag(home_flag,club_id,dataNm):
     return """ select
         proba_home,point_home,case when home_goal > away_goal then 1 else 0 end as target
-        from "{2}"
+        from "FOOTBET_{2}"
         where {1} = '{0}' 
         order by match_dt""".format(club_id,home_flag,dataNm)
 
