@@ -3,11 +3,11 @@ import numpy as np
 from utils.sql_calls import footbet_lstm_elo_global,footbet_lstm_elo_flag,footbet_lstm_simple2
 from utils.sql_calls import footbet_lstm_elo_form_flag,footbet_lstm_elo_form_global
 
-def prep_form(d,w):
-    if d.shape == (w,2):
+def prep_form(d,testShape):
+    if d.shape == testShape:
         return d
     else:
-        tmp = np.zeros((w,2))
+        tmp = np.zeros(testShape)
         for j in range(1,d.shape[0]+1):
             tmp[w-j]= d.values[-j]
         return tmp
