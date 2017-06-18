@@ -50,7 +50,7 @@ from "FOOTBET_{4}"
 where (home_id = '{0}' or away_id = '{0}') and match_dt <= '{2}') tmp
 where rk <= {3}
 order by match_dt
-""".format(home_flag,club_id,match_dt,w,dataNm)
+""".format(club_id,match_dt,w,dataNm)
 
 ########################
 
