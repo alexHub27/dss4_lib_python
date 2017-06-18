@@ -20,7 +20,7 @@ where home_id = '{0}' or away_id = '{0}'
 order by match_dt""".format(club_id,dataNm)
 
 def footbet_lstm_elo_global_test(club_id,dataNm):
-    return """
+    return """select
        case when home_id = '{0}' then point_home else point_away end as point_club
       ,case when (home_id = '{0}' and home_goal>away_goal) or (away_id = '{0}' and home_goal<=away_goal)
             then 1 else 0 end as target
