@@ -3,23 +3,6 @@ import dataiku as dk
 
 
 def footbet_lstm_elo_global(club_id,dataNm):
-    return """select case when home_id = '{0}' then 1 else 0 end as home_flag
-/*      ,case when home_id = '{0}' then (cast(home_rank as numeric) -1000)/60 
-            else (cast(away_rank as numeric) -1000)/60
-            end as rank_club
-      ,case when home_id = '{0}' then (cast(away_rank as numeric) -1000)/60 
-            else (cast(home_rank as numeric) -1000)/60
-            end as rank_adv */
-      ,case when home_id = '{0}' then proba_home else proba_away end as proba_club
-      ,case when home_id = '{0}' then point_home else point_away end as point_club
-      ,case when (home_id = '{0}' and home_goal>away_goal) or (away_id = '{0}' and home_goal<=away_goal)
-            then 1 else 0 end as target
-
-from "FOOTBET_{1}"
-where home_id = '{0}' or away_id = '{0}'
-order by match_dt""".format(club_id,dataNm)
-
-def footbet_lstm_elo_global_test(club_id,dataNm):
     return """select
        case when home_id = '{0}' 
             then 1
