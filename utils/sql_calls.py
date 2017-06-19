@@ -15,13 +15,13 @@ def footbet_lstm_elo_global_test(club_id,dataNm):
             then l.point_home 
             else l.point_away 
             end as point_club
-      ,case when r.home_id = '{0}'
-            then r.home_rank
-            else r.away_rank
+      ,case when l.home_id = '{0}'
+            then l.home_rank
+            else l.away_rank
             end as rank_club
-      ,case when r.home_id = '{0}'
-            then r.away_rank
-            else r.home_rank
+      ,case when l.home_id = '{0}'
+            then l.away_rank
+            else l.home_rank
             end as rank_adv
       ,r.match_day
       ,case when (l.home_id = '{0}' and l.home_goal>l.away_goal) or (l.away_id = '{0}' and l.home_goal<=l.away_goal) then 1
@@ -30,7 +30,7 @@ def footbet_lstm_elo_global_test(club_id,dataNm):
 from "FOOTBET_{1}" l
 inner join "FOOTBET_foot_games_flat" r
 on cast(l.match_id as text) = cast(r.match_id as text)
-where l.home_id = '{0}' or l.away_id = '{0}'
+where l.home_id = '{0}' or l.away_id = '{0}' 
 order by l.match_dt""".format(club_id,dataNm)
 
 def footbet_lstm_elo_global(club_id,dataNm):
