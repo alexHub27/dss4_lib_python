@@ -73,7 +73,7 @@ order by match_dt
 def footbet_lstm_elo_flag(home_flag,club_id,dataNm):
     return """ select proba_home,point_home
         
-        ,case when ('{0}'='home_id' and home_goal > away_goal) or ('{0}'='away_id' and home_goal <= away_goal) 
+        ,case when ('{1}'='home_id' and home_goal > away_goal) or ('{1}'='away_id' and home_goal <= away_goal) 
               then 1 
               else 0 
               end as target
