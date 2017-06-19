@@ -23,13 +23,13 @@ def footbet_lstm_elo_global_test(club_id,dataNm):
             then (cast(l.away_rank as numeric) -1000)/60
             else (cast(l.home_rank as numeric) -1000)/60
             end as rank_adv
-      ,r.match_day
+      /*,r.match_day*/
       ,case when (l.home_id = '{0}' and l.home_goal>l.away_goal) or (l.away_id = '{0}' and l.home_goal<=l.away_goal) then 1
             else 0 end as target
 
 from "FOOTBET_{1}" l
-inner join "FOOTBET_foot_games_flat" r
-on cast(l.match_id as text) = cast(r.match_id as text)
+/*inner join "FOOTBET_foot_games_flat" r
+on cast(l.match_id as text) = cast(r.match_id as text)*/
 where l.home_id = '{0}' or l.away_id = '{0}' 
 order by l.match_dt""".format(club_id,dataNm)
 
