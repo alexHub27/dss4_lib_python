@@ -12,10 +12,10 @@ from
       ,case when home_id = '{0}' then home_goal else away_goal end as club_goals
       ,compet_id,match_day
 from (select compet_id,match_day,home_id,away_id
-            ,case when home_attack_skills is null then 0 else home_attack_skills end as home_goal
-            ,case when away_attack_skills is null then 0 else away_attack_skills end as home_goal
-            ,case when home_defence_skills is null then 0 else home_defence_skills end as home_goal
-            ,case when away_defence_skills is null then 0 else away_defence_skills end as home_goal
+            ,case when home_attack_skills is null then 0 else home_attack_skills end as home_attack_skills
+            ,case when away_attack_skills is null then 0 else away_attack_skills end as away_attack_skills
+            ,case when home_defence_skills is null then 0 else home_defence_skills end as home_defence_skills
+            ,case when away_defence_skills is null then 0 else away_defence_skills end as away_defence_skills
             
             ,case when home_goal is null then 0 else home_goal end as home_goal
             ,case when away_goal is null then 0 else away_goal end as away_goal 
