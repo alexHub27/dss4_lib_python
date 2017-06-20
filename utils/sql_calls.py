@@ -1,9 +1,7 @@
 import dataiku as dk 
 
 def footbet_lstm_goal_attack_test(club_id,dataNm):
-    return """select club_id,compet_id,home_flag,match_day
-      ,case when club_attack_skills is null then 0 else club_attack_skills end as club_attack_skills
-      ,case when adv_defence_skills is null then 0 else adv_defence_skills end as adv_defence_skills
+    return """select club_id,compet_id,home_flag,match_day,club_attack_skills,adv_defence_skills
       ,lag(club_goals) over(partition by club_id,compet_id order by match_day) as prev_goal
       ,case when club_goals > 0 then 1 else 0 end as target
 from
@@ -13,9 +11,15 @@ from
       ,case when home_id = '{0}' then away_defence_skills else home_defence_skills end as adv_defence_skills
       ,case when home_id = '{0}' then home_goal else away_goal end as club_goals
       ,compet_id,match_day
-from (select compet_id,match_day,home_id,away_id,home_attack_skills,away_attack_skills,home_defence_skills,away_defence_skills
+from (select compet_id,match_day,home_id,away_id
+            ,case when home_attack_skills is null then 0 else home_attack_skills end as home_goal
+            ,case when away_attack_skills is null then 0 else away_attack_skills end as home_goal
+            ,case when home_defence_skills is null then 0 else home_defence_skills end as home_goal
+            ,case when away_defence_skills is null then 0 else away_defence_skills end as home_goal
+            
             ,case when home_goal is null then 0 else home_goal end as home_goal
-            ,case when away_goal is null then 0 else away_goal end as away_goal from "FOOTBET_{1}")tmp
+            ,case when away_goal is null then 0 else away_goal end as away_goal 
+            from "FOOTBET_{1}")tmp
 where home_id = '{0}' or away_id = '{0}')tmp
 order by compet_id,match_day""".format(club_id,dataNm)
 
