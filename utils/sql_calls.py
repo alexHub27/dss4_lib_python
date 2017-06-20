@@ -13,7 +13,7 @@ from
       ,case when home_id = '{0}' then away_defence_skills else home_defence_skills end as adv_defence_skills
       ,case when home_id = '{0}' then home_goal else away_goal end as club_goals
       ,compet_id,match_day
-from (select home_id,away_id,home_attack_skills,away_defence_skills
+from (select home_id,away_id,home_attack_skills,away_attack_skills,home_defence_skills,away_defence_skills
             ,case when home_goal is null then 0 else home_goal end as home_goal
             ,case when away_goal is null then 0 else away_goal end as away_goal from "FOOTBET_{1}")tmp
 where home_id = '{0}' or away_id = '{0}')tmp
