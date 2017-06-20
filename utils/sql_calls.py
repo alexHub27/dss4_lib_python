@@ -5,7 +5,7 @@ def footbet_lstm_goal_attack_test(club_id,dataNm):
       ,case when club_attack_skills is null then 0 else club_attack_skills end as club_attack_skills
       ,case when adv_defence_skills is null then 0 else adv_defence_skills end as adv_defence_skills
       ,lag(club_goals) over(partition by club_id,compet_id order by match_day) as prev_goal
-      ,case when club_goals > 0 then 1 else 0 end as target
+      ,case when club_goals > 1 then 1 else 0 end as target
 from
 (select case when home_id = '{0}' then home_id else away_id end as club_id 
       ,case when home_id = '{0}' then 1 else 0 end as home_flag
