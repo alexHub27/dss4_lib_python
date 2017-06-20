@@ -1,5 +1,21 @@
 import dataiku as dk 
 
+def footbet_lstm_goal_attack_test(club_id,dataNm):
+    return """select --club_id,compet_id,home_flag,match_day
+      case when club_attack_skills is null then 0 else club_attack_skills end as club_attack_skills
+      ,case when adv_defence_skills is null then 0 else adv_defence_skills end as adv_defence_skills
+      ,lag(club_goals) over(partition by club_id,compet_id order by match_day) as prev_goal
+      ,club_goals as target
+from
+(select case when home_id = '{0}' then home_id else away_id end as club_id 
+      ,case when home_id = '{0}' then 1 else 0 end as home_flag
+      ,case when home_id = '{0}' then home_attack_skills else away_attack_skills end as club_attack_skills
+      ,case when home_id = '{0}' then away_defence_skills else home_defence_skills end as adv_defence_skills
+      ,case when home_id = '{0}' then home_goal else away_goal end as club_goals
+      ,compet_id,match_day
+from "FOOTBET_{1}"
+where home_id = '{0}' or away_id = '{0}')tmp
+order by compet_id,match_day""".format(club_id,dataNm)
 
 def footbet_lstm_elo_global_test(club_id,dataNm):
     return """select
