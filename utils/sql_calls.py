@@ -2,7 +2,7 @@ import dataiku as dk
 
 def footbet_lstm_goal_attack_test(club_id,dataNm):
     return """select club_id,compet_id,home_flag,match_day
-      case when club_attack_skills is null then 0 else club_attack_skills end as club_attack_skills
+      ,case when club_attack_skills is null then 0 else club_attack_skills end as club_attack_skills
       ,case when adv_defence_skills is null then 0 else adv_defence_skills end as adv_defence_skills
       ,lag(club_goals) over(partition by club_id,compet_id order by match_day) as prev_goal
       ,club_goals as target
