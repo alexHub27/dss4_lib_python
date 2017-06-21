@@ -8,7 +8,7 @@ def footbet_lstm_goal_attack_test(club_id,dataNm):
         end as prev
       ,target
 from
-(select home_flag,club_attack_skills,adv_defence_skills
+(select club_id,compet_id,match_day,home_flag,club_attack_skills,adv_defence_skills
       ,case when home_flag = 1 and (club_goals = 0 or club_goals = 1) then 0
             when home_flag = 0 and club_goals = 0 then 0
             when home_flag = 1 and (club_goals = 2 or club_goals = 3) then 1
