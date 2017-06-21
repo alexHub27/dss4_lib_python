@@ -1,13 +1,16 @@
 import dataiku as dk 
 
 def footbet_lstm_goal_attack_test(club_id,dataNm):
-    return """select club_id,compet_id,home_flag,match_day,club_attack_skills,adv_defence_skills
-      ,case when lag(club_goals) over(partition by club_id,compet_id order by match_day) is null
+    return """select home_flag,club_attack_skills,adv_defence_skills
+      ,case when lag(target) over(partition by club_id,compet_id order by match_day) is null
             then 0 
-            else lag(club_goals) over(partition by club_id,compet_id order by match_day)
-        end as prev_goal
+            else lag(target) over(partition by club_id,compet_id order by match_day)
+        end as prev
+      ,target
+from
+(select home_flag,club_attack_skills,adv_defence_skills
       ,case when home_flag = 1 and (club_goals = 0 or club_goals = 1) then 0
-            when home_flag = 0 and club_goals = 0  then 0
+            when home_flag = 0 and club_goals = 0 then 0
             when home_flag = 1 and (club_goals = 2 or club_goals = 3) then 1
             when home_flag = 0 and (club_goals = 1 or club_goals = 2) then 1
             else 2
@@ -28,7 +31,7 @@ from (select compet_id,match_day,home_id,away_id
             ,case when home_goal is null then 0 else home_goal end as home_goal
             ,case when away_goal is null then 0 else away_goal end as away_goal 
             from "FOOTBET_{1}")tmp
-where home_id = '{0}' or away_id = '{0}')tmp
+where home_id = '{0}' or away_id = '{0}')tmp)tmp
 order by compet_id,match_day""".format(club_id,dataNm)
 
 def footbet_lstm_elo_global_test(club_id,dataNm):
