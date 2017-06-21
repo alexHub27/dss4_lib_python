@@ -1,5 +1,39 @@
 import dataiku as dk 
 
+def footbet_lstm_goal_defence_test(club_id,dataNm):
+    return """select home_flag,club_defence_skills,adv_attack_skills
+      ,case when lag(target) over(partition by club_id,compet_id order by match_day) is null
+            then 0 
+            else lag(target) over(partition by club_id,compet_id order by match_day)
+        end as prev
+      ,target
+from
+(select club_id,compet_id,match_day,home_flag,club_defence_skills,adv_attack_skills
+      ,case when home_flag = 1 and (club_goal_against = 0 or club_goal_against = 1) then 0
+            when home_flag = 0 and club_goal_against = 0 then 0
+            when home_flag = 1 and (club_goal_against = 2 or club_goal_against = 3) then 1
+            when home_flag = 0 and (club_goal_against = 1 or club_goal_against = 2) then 1
+            else 2
+        end as target
+from
+(select case when home_id = '{0}' then home_id else away_id end as club_id 
+      ,case when home_id = '{0}' then 1 else 0 end as home_flag
+      ,case when home_id = '{0}' then home_defence_skills else away_defence_skills end as club_defence_skills
+      ,case when home_id = '{0}' then away_attack_skills else home_attack_skills end as adv_attack_skills
+      ,case when home_id = '{0}' then away_goal else home_goal end as club_goal_against
+      ,compet_id,match_day
+from (select compet_id,match_day,home_id,away_id
+            ,case when home_attack_skills is null then 0 else home_attack_skills end as home_attack_skills
+            ,case when away_attack_skills is null then 0 else away_attack_skills end as away_attack_skills
+            ,case when home_defence_skills is null then 0 else home_defence_skills end as home_defence_skills
+            ,case when away_defence_skills is null then 0 else away_defence_skills end as away_defence_skills
+            
+            ,case when home_goal is null then 0 else home_goal end as home_goal
+            ,case when away_goal is null then 0 else away_goal end as away_goal 
+            from "FOOTBET_{1}")tmp
+where home_id = '{0}' or away_id = '{0}')tmp)tmp
+order by compet_id,match_day""".format(club_id,dataNm)
+
 def footbet_lstm_goal_attack_test(club_id,dataNm):
     return """select home_flag,club_attack_skills,adv_defence_skills
       ,case when lag(target) over(partition by club_id,compet_id order by match_day) is null
