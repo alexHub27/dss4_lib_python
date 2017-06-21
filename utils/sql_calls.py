@@ -9,7 +9,7 @@ def footbet_lstm_goal_defence_test(club_id,dataNm):
       ,target
 from
 (select club_id,compet_id,match_day,home_flag,club_defence_skills,adv_attack_skills
-      ,case when club_goal_against then 0
+      ,case when club_goal_against = 0 then 0
             when club_goal_against = 1 then 1
             when (club_goal_against = 2 or club_goal_against = 3) then 2
             else 3
@@ -42,7 +42,7 @@ def footbet_lstm_goal_attack_test(club_id,dataNm):
       ,target
 from
 (select club_id,compet_id,match_day,home_flag,club_attack_skills,adv_defence_skills
-      ,case when club_goals then 0
+      ,case when club_goals =0  then 0
             when club_goals = 1 then 1
             when (club_goals = 2 or club_goals = 3) then 2
             else 3
