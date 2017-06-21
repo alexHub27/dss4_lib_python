@@ -6,8 +6,10 @@ def footbet_lstm_goal_attack_test(club_id,dataNm):
             then 0 
             else lag(club_goals) over(partition by club_id,compet_id order by match_day)
         end as prev_goal
-      ,case when club_goals = 0 or club_goals = 1 then 0
-            when club_goals = 2 or club_goals = 3 then 1
+      ,case when home_flag = 1 and (club_goals = 0 or club_goals = 1) then 0
+            when home_flag = 0 and club_goals = 0  then 0
+            when home_flag = 1 and (club_goals = 2 or club_goals = 3) then 1
+            when home_flag = 0 and (club_goals = 1 or club_goals = 2) then 1
             else 2
         end as target
 from
