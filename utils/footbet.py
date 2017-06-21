@@ -2,7 +2,7 @@ import dataiku as dk
 import numpy as np
 from utils.sql_calls import footbet_lstm_elo_global,footbet_lstm_elo_flag,footbet_lstm_elo_global_test
 from utils.sql_calls import footbet_lstm_elo_form_flag,footbet_lstm_elo_form_global
-from utils.sql_calls import footbet_lstm_goal_attack_test
+from utils.sql_calls import footbet_lstm_goal_attack_test,footbet_lstm_goal_defence_test
 
 def prep_form(d,testShape):
     if d.shape == testShape:
@@ -27,6 +27,11 @@ def get_target_bin(home_goal,away_goal):
         return 1
     else:
         return 0
+
+def get_club_histo_defence_global_test(club_id,dataNm):
+    executor = dk.core.sql.SQLExecutor2(dataset=dk.Dataset(dataNm))
+    mess = footbet_lstm_goal_defence_test(club_id,dataNm)
+    return executor.query_to_df(mess)
 
 def get_club_histo_attack_global_test(club_id,dataNm):
     executor = dk.core.sql.SQLExecutor2(dataset=dk.Dataset(dataNm))
