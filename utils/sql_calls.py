@@ -9,11 +9,10 @@ def footbet_lstm_goal_defence_test(club_id,dataNm):
       ,target
 from
 (select club_id,compet_id,match_day,home_flag,club_defence_skills,adv_attack_skills
-      ,case when home_flag = 1 and (club_goal_against = 0 or club_goal_against = 1) then 0
-            when home_flag = 0 and club_goal_against = 0 then 0
-            when home_flag = 1 and (club_goal_against = 2 or club_goal_against = 3) then 1
-            when home_flag = 0 and (club_goal_against = 1 or club_goal_against = 2) then 1
-            else 2
+      ,case when club_goal_against then 0
+            when club_goal_against = 1 then 1
+            when (club_goal_against = 2 or club_goal_against = 3) then 2
+            else 3
         end as target
 from
 (select case when home_id = '{0}' then home_id else away_id end as club_id 
@@ -43,11 +42,10 @@ def footbet_lstm_goal_attack_test(club_id,dataNm):
       ,target
 from
 (select club_id,compet_id,match_day,home_flag,club_attack_skills,adv_defence_skills
-      ,case when home_flag = 1 and (club_goals = 0 or club_goals = 1) then 0
-            when home_flag = 0 and club_goals = 0 then 0
-            when home_flag = 1 and (club_goals = 2 or club_goals = 3) then 1
-            when home_flag = 0 and (club_goals = 1 or club_goals = 2) then 1
-            else 2
+      ,case when club_goal_against then 0
+            when club_goal_against = 1 then 1
+            when (club_goal_against = 2 or club_goal_against = 3) then 2
+            else 3
         end as target
 from
 (select case when home_id = '{0}' then home_id else away_id end as club_id 
