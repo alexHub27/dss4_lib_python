@@ -6,12 +6,12 @@ from utils.sql_calls import footbet_lstm_goal_attack_test,footbet_lstm_goal_defe
 
 def prep_form(d,testShape):
     if d.shape == testShape:
-        return d.values
+        return d
     else:
         tmp = np.zeros(testShape)
         w = testShape[0]
         for j in range(1,d.shape[0]+1):
-            tmp[w-j]= d.values[-j]
+            tmp[w-j]= d[-j]
         return tmp
     
 def get_target(home_goal,away_goal):
