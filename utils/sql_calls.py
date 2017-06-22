@@ -1,6 +1,6 @@
 import dataiku as dk 
 
-def footbet_lstm_attack_form_test(club_id,match_dt,dataNm):
+def footbet_lstm_attack_form_test(club_id,match_dt,w,dataNm):
     return """ select home_flag,club_defence_skills,adv_attack_skills
       ,case when lag(target) over(partition by club_id,compet_id order by match_day) is null
             then 0 
@@ -32,9 +32,9 @@ from (select compet_id,match_dt,match_day,home_id,away_id
             
             from "FOOTBET_{2}")tmp
 where home_id = '{0}'  and match_dt <= '{1}')tmp
-where rk < '${wG}')tmp
+where rk < '{3}')tmp
 order by compet_id,match_day
-""".format(club_id,match_dt,dataNm)
+""".format(club_id,match_dt,w,dataNm)
         
 def footbet_lstm_goal_defence_test(club_id,dataNm):
     return """select home_flag,club_defence_skills,adv_attack_skills
