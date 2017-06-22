@@ -35,6 +35,12 @@ def get_club_histo_attack_form_test(club_id,match_dt,w,dataNm):
     d = executor.query_to_df(mess)
     return d.values
 
+def get_club_histo_defence_form_test(club_id,match_dt,w,dataNm):
+    executor = dk.core.sql.SQLExecutor2(dataset=dk.Dataset(dataNm))
+    mess = footbet_lstm_defence_form_test(club_id,match_dt,w,dataNm)
+    d = executor.query_to_df(mess)
+    return d.values
+
 def get_club_histo_defence_global_test(club_id,dataNm):
     executor = dk.core.sql.SQLExecutor2(dataset=dk.Dataset(dataNm))
     mess = footbet_lstm_goal_defence_test(club_id,dataNm)
