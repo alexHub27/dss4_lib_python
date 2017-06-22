@@ -7,16 +7,14 @@ def footbet_lstm_attack_form_test(club_id,match_dt,dataNm):
             else lag(target) over(partition by club_id,compet_id order by match_day)
         end as prev_scored
 from
-(
-select club_id,compet_id,match_dt,home_flag,club_defence_skills,adv_attack_skills
+(select club_id,compet_id,match_dt,home_flag,club_defence_skills,adv_attack_skills
       ,case when club_goal_against = 0 then 0
             when club_goal_against = 1 then 1
             when (club_goal_against = 2 or club_goal_against = 3) then 2
             else 3
         end as target
 from
-(
-select case when home_id = '{0}' then home_id else away_id end as club_id 
+(select case when home_id = '{0}' then home_id else away_id end as club_id 
       ,case when home_id = '{0}' then 1 else 0 end as home_flag
       ,case when home_id = '{0}' then home_defence_skills else away_defence_skills end as club_defence_skills
       ,case when home_id = '{0}' then away_attack_skills else home_attack_skills end as adv_attack_skills
