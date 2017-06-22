@@ -30,8 +30,8 @@ from (select compet_id,match_dt,match_day,home_id,away_id
             ,case when home_goal is null then 0 else home_goal end as home_goal
             ,case when away_goal is null then 0 else away_goal end as away_goal 
             
-            from "FOOTBET_{}")tmp
-where home_id = '{0}'  and m2atch_dt <= '{1}')tmp
+            from "FOOTBET_{2}")tmp
+where home_id = '{0}'  and match_dt <= '{1}')tmp
 where rk < '${wG}')tmp
 order by compet_id,match_day
 """.format(club_id,match_dt,dataNm)
