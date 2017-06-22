@@ -1,6 +1,6 @@
 import dataiku as dk 
 
-def footbet_lstm_global_form_test(club_id,match_dt,dataNm):
+def footbet_lstm_global_attack_form_test(club_id,match_dt,dataNm):
     return """ select home_flag,club_defence_skills,adv_attack_skills
       ,case when lag(target) over(partition by club_id,compet_id order by match_dt) is null
             then 0 
