@@ -95,7 +95,7 @@ from
       ,case when home_id = '{0}' then away_attack_skills else home_attack_skills end as adv_attack_skills
       ,case when home_id = '{0}' then away_goal else home_goal end as club_goal_against
       ,compet_id,match_day
-from (select compet_id,match_day,home_id,away_id
+from (select compet_id,home_id,away_id
             ,case when home_id ='{0}' then match_day_h else match_day_a end as match_day
             ,case when home_attack_skills is null then 0 else home_attack_skills end as home_attack_skills
             ,case when away_attack_skills is null then 0 else away_attack_skills end as away_attack_skills
