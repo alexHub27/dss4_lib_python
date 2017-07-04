@@ -6,6 +6,22 @@ from multiprocessing import Pool
 from bs4 import BeautifulSoup as Soup
 
 
+def assess_type(test):
+    if not test or test!=test :
+        return 'NULL'
+    try :
+        int(test)
+        return 'INT'
+    except ValueError:
+        pass
+    try:
+        float(test)
+        return 'FLOAT'
+    except ValueError:
+        pass
+    
+    return 'TEXT'
+
 def merge_two_dicts(x, y):
     """Given two dicts, merge them into a new dict as a shallow copy."""
     z = x.copy()
