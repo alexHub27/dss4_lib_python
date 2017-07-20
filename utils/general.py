@@ -28,10 +28,10 @@ def merge_two_dicts(x, y):
     z.update(y)
     return z
 
-def get_soup(link,headerName=None,params=None,verify=None):
+def get_soup(link,headers=None,params=None,verify=None):
     """ The deaders have to be defined as a custom variables at the project level. """
-    if type(headerName) == 'str' :
-        headers = json.loads(dk.get_custom_variables()[headerName])
+    if type(headers) == 'str' :
+        headers = json.loads(dk.get_custom_variables()[headers])
         
     if not verify :
         r = rq.get(link,headers=headers,params=params)
