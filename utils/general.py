@@ -70,3 +70,6 @@ def load_model(modNm):
     model = model_from_json(modStr)
     model.load_weights(modNm+'.h5')
     return model
+
+def get_showered(dirtyPig):
+    return str(dirtyPig.encode('utf-8')).translate(None,"\r\n\t").strip(' ').decode('utf-8')
