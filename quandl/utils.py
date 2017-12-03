@@ -21,5 +21,5 @@ def get_df_data(df_data,tickerLst,endDate,startDate=None):
     return df_data.loc[(df_data.index>startDate)&(df_data.index<endDate)][tickerLst]
 
 def get_end_signal(timeStamp,halfLife,fact=3):
-    return timeStamp + dt.timedelta(days=fact*halflife)
+    return timeStamp + dt.timedelta(days=fact*halfLife)
 
