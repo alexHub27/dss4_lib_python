@@ -11,7 +11,6 @@ def get_Z(ticker_X,ticker_Y,beta,timeStamp,df_data):
 
 
 def get_half_life(Z):
-    z_array = get_z(stockX,stockY,beta,df_is)
     z_lag = np.roll(Z,1)
     z_lag[0] = 0
     z_ret = Z - z_lag
