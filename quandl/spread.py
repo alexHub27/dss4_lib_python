@@ -6,8 +6,8 @@ from statsmodels.api import OLS
 from quandl.utils import get_df_data
 
 
-def get_Z(ticker_X,ticker_Y,beta,timeStamp,df_data,startDate=None):
-    df_data = get_df_data(df_data=df_data,tickerLst=[ticker_X,ticker_Y],endDate=timeStamp,startDate=startDate)
+def get_Z(df_data,ticker_X,ticker_Y,beta,endDate,startDate=None):
+    df_data = get_df_data(df_data=df_data,tickerLst=[ticker_X,ticker_Y],endDate=endDate,startDate=startDate)
     return df_data[ticker_Y].values - np.float(beta) * df_data[ticker_X].values
 
 def get_half_life(Z):
