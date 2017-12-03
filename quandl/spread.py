@@ -5,7 +5,7 @@ from statsmodels.api import OLS
 
 
 def get_Z(ticker_X,ticker_Y,beta,timeStamp,df_data):
-    df_data = get_df_data[[ticker_X,ticker_Y]
+    df_data = get_df_data[df_data=df_data,tickerLst=[ticker_X,ticker_Y],endDate=timeStamp)
     return df_data[ticker_Y].values - np.float(beta) * df_data[ticker_X].values
 
 
