@@ -17,7 +17,7 @@ def get_price_dataframe(dfNm="wiki_sp500_daily_2007"):
 
 def get_df_data(df_data,tickerLst,endDate,startDate=None):
     if not startDate : 
-        startDate = endDate - dt.timedelta(days=252*7.5)
+        startDate = endDate - dt.timedelta(days=365*7.5)
     return df_data.loc[(df_data.index>startDate)&(df_data.index<endDate)][tickerLst]
 
 def get_end_signal(timeStamp,halfLife,fact=3):
