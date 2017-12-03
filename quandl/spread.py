@@ -4,9 +4,14 @@ import pandas as pd
 from statsmodels.tsa.stattools import adfuller,coint,add_constant
 from statsmodels.api import OLS
 
+
+def get_df_data(df_data,tickerLst,endDate,startDate=None):
+    if not startDate : 
+        startDate = endDate - dt.timedelta(days=252*7.5)
+    return df_data.loc[(df_data.index>startDate)&(df_data.index<endDate)][tickerLst]
+
 def get_Z(ticker_X,ticker_Y,beta,timeStamp,df_data):
-    start = timeStamp - dt.timedelta(days=252*7.5)
-    df_data = df_data.loc[(df_data.index>start)&(df_data.index<timeStamp)][[ticker_X,ticker_Y]]
+
     return df_data[ticker_Y].values - np.float(beta) * df_data[ticker_X].values
 
 
