@@ -1,4 +1,3 @@
-import datetime as dt 
 import numpy as np
 import pandas as pd 
 from statsmodels.tsa.stattools import adfuller,coint,add_constant
@@ -6,7 +5,7 @@ from statsmodels.api import OLS
 
 
 def get_Z(ticker_X,ticker_Y,beta,timeStamp,df_data):
-
+    df_data = get_df_data[[ticker_X,ticker_Y]
     return df_data[ticker_Y].values - np.float(beta) * df_data[ticker_X].values
 
 
