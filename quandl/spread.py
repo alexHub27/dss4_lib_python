@@ -20,4 +20,4 @@ def get_half_life(Z):
     model = OLS(z_ret,z_lag2)
     res = model.fit()
 
-    return int(-log(2)/res.params[1])
+    return int(-np.log(2)/res.params[1])
