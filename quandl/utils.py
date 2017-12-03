@@ -13,7 +13,7 @@ def get_price_dataframe(dfNm="wiki_sp500_daily_2007"):
     dfs.index = dfs.Date
     return dfs 
 
-def get_Z(ticker_X,ticker_Y,beta,const,timeStamp,df_data):
-    df_data = df_data.loc[df_data.index<timeStamp][[ticker_X,ticker_Y]]
-    dlta = dt.timedelta(days=252*7.5)
-    return 
+def get_Z(ticker_X,ticker_Y,beta,timeStamp,df_data):
+    start = timeStamp - dt.timedelta(days=252*7.5)
+    df_data = df_data.loc[(df_data.index>start)&(df_data.index<timeStamp)][[ticker_X,ticker_Y]]
+    return df_data[ticker_Y].values - beta * df_data[ticker_X].values
