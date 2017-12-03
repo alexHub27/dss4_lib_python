@@ -1,5 +1,6 @@
 import dataiku as dk
 import numpy as np
+import pandas as pd
 import datetime as dt
 
 def get_tickerDic(dfNm="sp500_ticker"):
