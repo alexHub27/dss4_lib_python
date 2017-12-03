@@ -1,4 +1,5 @@
 import dataiku as dk
+import numpy as np
 
 def get_tickerDic(dfNm=sp500_ticker):
     df_sym= dk.Dataset(dfNm).get_dataframe()
