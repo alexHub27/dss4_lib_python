@@ -1,8 +1,6 @@
 import dataiku as dk
 import numpy as np
 import pandas as pd
-import datetime as dt
-import 
 
 def get_tickerDic(dfNm="sp500_ticker"):
     df_sym= dk.Dataset(dfNm).get_dataframe()
