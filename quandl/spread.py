@@ -13,6 +13,10 @@ def get_Z(df_data,ticker_X,ticker_Y,beta,endDate,startDate=None):
 def get_z(stock_X,stock_Y,beta,df_is):
     return df_is[stock_Y]- np.float(beta)*df_is[stock_X]
 
+def std_z(stock_X,stock_Y,beta,df_is):
+    # called in get_df_coint
+    return np.std(get_z(stock_X,stock_Y,beta,df_is))
+
 def get_half_life(Z):
     z_lag = np.roll(Z,1)
     z_lag[0] = 0
