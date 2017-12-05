@@ -6,6 +6,8 @@ from statsmodels.api import OLS
 
 import datetime as dt
 
+from quandl.spread import get_half_life
+
 def get_corrLst(df_is,tickerDic):
     #  called in main
     corrList = []
