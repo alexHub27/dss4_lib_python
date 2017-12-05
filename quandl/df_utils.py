@@ -6,7 +6,7 @@ from statsmodels.api import OLS
 
 import datetime as dt
 
-from quandl.spread import get_half_life
+from quandl.spread import get_half_life_from_scratch
 
 def get_corrLst(df_is,tickerDic):
     #  called in main
@@ -52,7 +52,7 @@ def get_df_coint(cointLst,tickerDic,df_is):
     df_coint = pd.DataFrame(np.array(cointLst),columns=["spreadNm","stock_X","stock_Y","coefcorr","dist"
                                                         ,"adf","const","beta"])
     # Computing half life
-    df_coint["half_life"] = [get_half_life(tck,df_coint.stock_X.values[idx],df_coint.beta.values[idx],df_is) 
+    df_coint["half_life"] = [get_half_life_from_scratch(tck,df_coint.stock_X.values[idx],df_coint.beta.values[idx],df_is) 
                              for idx,tck in enumerate(df_coint.stock_X.values)]
     df_coint["sector"] = [tickerDic[tck] for tck in df_coint.stock_X.values]
     
