@@ -67,3 +67,33 @@ def get_df_coint(cointLst,tickerDic,df_is):
     
     print "Df_shape : ",df_coint.shape
     return df_coint
+
+
+def get_risk_mngt(df_coint,sector=True,maxPerSector=10,maxPair=20,maxStd=15,maxHalfLife=120,absZ=1):
+    # called in main
+    # Risk management policy: Sectors
+    if sector:
+        df_coint["RN"] = df_coint.sort_values(['adf']).groupby(['sector']).cumcount()+1
+        df_coint = df_coint.loc[df_coint["RN"]<=maxPerSector][df_coint.columns[:-1]]
+    else:
+        pass
+    
+    # Risk management policy: Limit the risk of the spread (length on hold and vol of spread)
+    df_coint = df_coint.loc[(df_coint["stdv"]<maxStd)&(df_coint["half_life"]<=maxHalfLife)]
+    # Risk management policy: Taking only the strongest pairs
+    df_coint = df_coint.sort_values(['adf']).head(maxPair)
+    # Getting signals
+    df_trade = df_coint.loc[df_coint["last_Zscore"].abs()>absZ]    
+                            
+    print "There is {0} signals compliant with risk policy.".format(df_trade.shape[0])
+    return df_trade
+
+def money_mngt(df_tradeToday,endDate):
+    # called in main
+    df_tradeToday["timeStamp"] = [endDate for i in range(df_tradeToday.shape[0])]
+    df_tradeToday["entryPrice"] = [lp for lp in df_tradeToday.lastPrice.values]
+    df_tradeToday["typeOrder"] = [1 if z<0 else -1 for z in df_tradeToday.last_Zscore.values]
+    df_tradeToday["pnl"] = df_tradeToday["lastPrice"] - df_tradeToday["entryPrice"]
+    
+    print "df_tradeToday: ",df_tradeToday.shape
+    return df_tradeToday
