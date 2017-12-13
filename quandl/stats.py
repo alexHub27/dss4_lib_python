@@ -85,8 +85,8 @@ def coint_alex(y0, y1, trend='c', maxlag=None, autolag='aic'):
     y1 = np.asarray(y1)
     #if y1.ndim < 2:
     #    y1 = y1[:, None]
-    nobs, k_vars = y1.shape
-    k_vars += 1   # add 1 for y0
+    nobs, k_vars = y1.shape,1
+    #k_vars += 1   # add 1 for y0
 
     if trend == 'nc':
         xx = y1
@@ -114,6 +114,6 @@ def coint_alex(y0, y1, trend='c', maxlag=None, autolag='aic'):
         #  nobs - 1, the -1 is to match egranger in Stata, I don't know why.
         #  TODO: check nobs or df = nobs - k
 
-    pval_asy = mackinnonp(res_adf[0], regression=trend, N=1)#
+    pval_asy = mackinnonp(res_adf[0], regression=trend, N=k_vars)#
 #    if pval_asy<0.01:
     return res_adf[0],pval_asy, res_co.params
