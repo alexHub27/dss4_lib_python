@@ -4,7 +4,7 @@ import numpy as np
 from statsmodels.tsa.stattools import adfuller,coint,add_constant
 from statsmodels.api import OLS
 
-from quandl.stats import coint_alex
+from quandl.stats import coint_alex,adfuller_alex
 import datetime as dt
 
 from quandl.spread import get_half_life_from_scratch,get_z,std_z
@@ -54,10 +54,10 @@ def get_cointLst2(corrList,df_is):
     for pair in corrList:
         X1,X2 = df_is[pair[0]].values,df_is[pair[1]].values 
 
-        adf1,pval1,params1 = coint_alex(X2,X1)
+        adf1,pval1,params1 = adfuller_alex(X2,X1)
 
         if pval1<0.01 : 
-            adf2,pval2,params2 = coint_alex(X1,X2)
+            adf2,pval2,params2 = adfuller_alex(X1,X2)
             if pval2<0.01 and pval1 < pval2: # Test for strong cointegration in both side only.
                 cointLst.append(["{0}_{1}".format(pair[0],pair[1])]+pair+[pval1]+list(params1))
             elif pval2<0.01:
