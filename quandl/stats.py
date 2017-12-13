@@ -114,6 +114,6 @@ def coint_alex(y0, y1, trend='c', maxlag=None, autolag='aic'):
         #  nobs - 1, the -1 is to match egranger in Stata, I don't know why.
         #  TODO: check nobs or df = nobs - k
 
-    pval_asy = mackinnonp(res_adf[0], regression=trend, N=k_vars)
+    pval_asy = mackinnonp(res_adf[0], regression=trend, N=1)#
 #    if pval_asy<0.01:
     return res_adf[0],pval_asy, res_co.params
