@@ -91,7 +91,8 @@ def coint_alex(y0, y1, trend='c', maxlag=None, autolag='aic'):
     if trend == 'nc':
         xx = y1
     else:
-        xx = add_trend(y1, trend=trend, prepend=False)
+        #xx = add_trend(y1, trend=trend, prepend=False)
+        xx = 
 
     res_co = OLS(y0, xx).fit()
 
