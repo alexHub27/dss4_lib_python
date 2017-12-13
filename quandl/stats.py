@@ -1,8 +1,11 @@
+import numpy as np
+
 from statsmodels.tsa.stattools import adfuller,lagmat, lagmat2ds, add_trend
 from statsmodels.tsa.adfvalues import mackinnonp, mackinnoncrit
 from statsmodels.tools.tools import add_constant, Bunch
 
 from statsmodels.regression.linear_model import OLS, yule_walker
+
 
 def coint_alex(y0, y1, trend='c', maxlag=None, autolag='aic'):
     """Test for no-cointegration of a univariate equation
