@@ -98,7 +98,7 @@ def coint_alex(y0, y1, trend='c', maxlag=None, autolag='aic'):
 
     if res_co.rsquared < 1 - np.sqrt(np.finfo(np.double).eps):
         res_adf = adfuller(res_co.resid, maxlag=maxlag, autolag=None,
-                           regression='nc')
+                           regression='c')
     else:
         import warnings
         warnings.warn("y0 and y1 are perfectly colinear.  Cointegration test "
