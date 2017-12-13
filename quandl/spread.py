@@ -24,10 +24,9 @@ def get_half_life(Z):
 
     # adds intercept terms to X for regression
     z_lag2 = add_constant(z_lag)
-    model = OLS(z_ret,z_lag2)
-    res = model.fit()
+    model = OLS(z_ret,z_lag2).fit()
 
-    return int(-np.log(2)/res.params[1])
+    return int(-np.log(2)/model.params[1])
 
 def get_half_life_from_scratch(stockX,stockY,beta,df_is):
     # called in get_df_coint
