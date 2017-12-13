@@ -57,7 +57,7 @@ def get_cointLst2(corrList,df_is):
         adf1,pval1,params1 = coint_alex(X2,X1)
 
         if pval1<0.01 : 
-            adf1,pval1,params1 = coint_alex(X1,X2)
+            adf2,pval2,params2 = coint_alex(X1,X2)
             if pval2<0.01 and pval1 < pval2: # Test for strong cointegration in both side only.
                 cointLst.append(["{0}_{1}".format(pair[0],pair[1])]+pair+[pval1]+list(params1))
             elif pval2[1]<0.01:
