@@ -91,7 +91,7 @@ def get_df_coint(cointLst,tickerDic,df_is):
     return df_coint
 
 
-def get_risk_mngt(df_coint,sector=True,maxPerSector=10,maxPair=20,maxStd=15,maxHalfLife=120,absZ=1):
+def get_risk_mngt(df_coint,sector=False,maxPerSector=10,maxPair=20,maxStd=15,maxHalfLife=60,absZ=1):
     # called in main
     # Risk management policy: Sectors
     if sector:
@@ -103,7 +103,7 @@ def get_risk_mngt(df_coint,sector=True,maxPerSector=10,maxPair=20,maxStd=15,maxH
     # Risk management policy: Limit the risk of the spread (length on hold and vol of spread)
     df_coint = df_coint.loc[(df_coint["stdv"]<maxStd)&(df_coint["half_life"]<=maxHalfLife)]
     # Risk management policy: Taking only the strongest pairs
-    df_coint = df_coint.sort_values(['adf']).head(maxPair)
+    df_coint = df_coint.sort_values(['adf','half_life']).head(maxPair)
     # Getting signals
     df_trade = df_coint.loc[df_coint["last_Zscore"].abs()>absZ]    
                             
