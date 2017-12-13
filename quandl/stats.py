@@ -83,8 +83,8 @@ def coint_alex(y0, y1, trend='c', maxlag=None, autolag='aic'):
         raise ValueError("trend option %s not understood" % trend)
     y0 = np.asarray(y0)
     y1 = np.asarray(y1)
-    if y1.ndim < 2:
-        y1 = y1[:, None]
+    #if y1.ndim < 2:
+    #    y1 = y1[:, None]
     nobs, k_vars = y1.shape
     k_vars += 1   # add 1 for y0
 
