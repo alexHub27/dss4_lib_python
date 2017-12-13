@@ -107,7 +107,7 @@ def get_risk_mngt(df_coint,sector=None,maxPair=None,maxPerSector=10,maxStd=10,ma
 
     # Risk management policy: Taking only the strongest pairs
     if maxPair:
-        df_trade = df_trade.head(maxPair)
+        df_trade = df_trade.sort_values(["adf","half_life"]).head(maxPair)
                         
     print "There is {0} signals compliant with risk policy.".format(df_trade.shape[0])
     return df_trade
