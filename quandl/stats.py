@@ -116,4 +116,4 @@ def coint_alex(y0, y1, trend='c', maxlag=None, autolag='aic'):
 
     pval_asy = mackinnonp(res_adf[0], regression=trend, N=k_vars)#
 #    if pval_asy<0.01:
-    return res_adf[0],pval_asy, res_co.params
+    return res_adf,pval_asy, res_co.params
