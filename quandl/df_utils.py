@@ -54,14 +54,14 @@ def get_cointLst2(corrList,df_is):
     for pair in corrList:
         X1,X2 = df_is[pair[0]].values,df_is[pair[1]].values 
 
-        t1 = coint_alex(X2,X1)
+        adf1,pval1,params1 = coint_alex(X2,X1)
 
-        if t1[1]<0.01 : 
-            t2 = coint_alex(X1,X2)
-            if t2[1]<0.01 and t1[1] < t2[1]: # Test for strong cointegration in both side only.
-                cointLst.append(["{0}_{1}".format(pair[0],pair[1])]+pair+[t1[1]]+list(t1[3]))
-            elif t2[1]<0.01:
-                cointLst.append(["{0}_{1}".format(pair[1],pair[0])]+[pair[1],pair[0],pair[2],pair[3],t2[1]]+list(t2[3]))
+        if pval1<0.01 : 
+            adf1,pval1,params1 = coint_alex(X1,X2)
+            if pval2<0.01 and pval1 < pval2: # Test for strong cointegration in both side only.
+                cointLst.append(["{0}_{1}".format(pair[0],pair[1])]+pair+[pval1]+list(params1))
+            elif pval2[1]<0.01:
+                cointLst.append(["{0}_{1}".format(pair[1],pair[0])]+[pair[1],pair[0],pair[2],pair[3],pval2]+list(params2))
                             
     print "There are {0} pairs strongly cointegrated.".format(len(cointLst))
     return cointLst
