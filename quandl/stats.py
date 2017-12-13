@@ -6,6 +6,15 @@ from statsmodels.tools.tools import add_constant, Bunch
 
 from statsmodels.regression.linear_model import OLS, yule_walker
 
+def adfuller_alex(y0,y1,trend='c',autolag=None):
+    y0 = np.asarray(y0)
+    y1 = np.asarray(y1)
+    
+    xx = add_constant(y1)
+    res_co = OLS(y0,xx).fit()
+    res_adf = adfuller(res_co.resid,autolag=autolag,regression=trend)
+                   
+    return res_adf[0],res_adf[1],res_co.params
 
 def coint_alex(y0, y1, trend='c', maxlag=None, autolag='aic'):
     """Test for no-cointegration of a univariate equation
