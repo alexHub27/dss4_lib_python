@@ -4,6 +4,7 @@ import numpy as np
 from statsmodels.tsa.stattools import adfuller,coint,add_constant
 from statsmodels.api import OLS
 
+from quandl.stats import coint_alex
 import datetime as dt
 
 from quandl.spread import get_half_life_from_scratch,get_z,std_z
@@ -42,6 +43,25 @@ def get_cointLst(corrList,df_is):
                 cointLst.append(["{0}_{1}".format(pair[0],pair[1])]+pair+[adf1]+list(r1.params))
             elif adf2<0.01:
                 cointLst.append(["{0}_{1}".format(pair[1],pair[0])]+[pair[1],pair[0],pair[2],pair[3],adf2]+list(r2.params))
+                            
+    print "There are {0} pairs strongly cointegrated.".format(len(cointLst))
+    return cointLst
+
+def get_cointLst2(corrList,df_is):
+    # called in main
+    # Test cointegration the test has to be perform on both side of the spread
+    cointLst = []
+    for pair in corrList:
+        X1,X2 = df_is[pair[0]].values,df_is[pair[1]].values 
+
+        t1 = coint_alex(X2,X1)
+
+        if t1[1]<0.01 : 
+            t2 = coint_alex(X1,X2)
+            if t2[1]<0.01 and t1[1] < t2[1]: # Test for strong cointegration in both side only.
+                cointLst.append(["{0}_{1}".format(pair[0],pair[1])]+pair+[t1[1]]+list(t1[3]))
+            elif adf2<0.01:
+                cointLst.append(["{0}_{1}".format(pair[1],pair[0])]+[pair[1],pair[0],pair[2],pair[3],t2[1]]+list(t2[3]))
                             
     print "There are {0} pairs strongly cointegrated.".format(len(cointLst))
     return cointLst
