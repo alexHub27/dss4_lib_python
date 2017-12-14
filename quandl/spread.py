@@ -42,3 +42,14 @@ def get_half_life_from_scratch(stockX,stockY,beta,df_is):
     res = model.fit()
 
     return int(-np.log(2)/res.params[1])
+
+def get_ma(X,Y,beta,hl,dfs,fact=3):
+    w = hl*fact
+    z = get_z(X,Y,beta,dfs)
+    return np.sum(z[-w:])/float(w)
+
+
+def get_std(X,Y,beta,hl,dfs,fact=3):
+    w = hl*fact
+    z = get_z(X,Y,beta,dfs)
+    return np.std(z[-w:])
