@@ -114,7 +114,7 @@ def get_df_coint2(cointLst,tickerDic,df_is):
                                for idx,lp in enumerate(df_coint.lastPrice.values)]
     
     print "Df_shape : ",df_coint.shape
-    return df_coin
+    return df_coint
 
 def get_risk_mngt(df_coint,sector=None,maxPair=None,maxPerSector=10,maxStd=10,maxHalfLife=60,absZ=1):
     # called in main
