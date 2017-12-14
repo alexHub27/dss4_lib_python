@@ -114,10 +114,10 @@ def get_risk_mngt(df_coint,sector=None,maxPair=None,maxPerSector=10,maxStd=10,ma
 
 def money_mngt(df_tradeToday,endDate):
     # called in main
-    df_tradeToday["timeStamp"] = [endDate for i in range(df_tradeToday.shape[0])]
+    df_tradeToday["timeStamp"] = endDate
     df_tradeToday["entryPrice"] = [lp for lp in df_tradeToday.lastPrice.values]
     df_tradeToday["typeOrder"] = [1 if z<0 else -1 for z in df_tradeToday.last_Zscore.values]
-    df_tradeToday["pnl"] = df_tradeToday["lastPrice"] - df_tradeToday["entryPrice"]
+    df_tradeToday["pnl"] = df_tradeToday.lastPrice.values - df_tradeToday.entryPrice.values
     
     print "df_tradeToday: ",df_tradeToday.shape
     return df_tradeToday
