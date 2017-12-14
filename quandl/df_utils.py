@@ -5,6 +5,7 @@ from statsmodels.tsa.stattools import adfuller,coint,add_constant
 from statsmodels.api import OLS
 
 from quandl.stats import coint_alex,adfuller_alex
+from quandl.spread import get_ma,get_std,get_z
 import datetime as dt
 
 from quandl.spread import get_half_life_from_scratch,get_z,std_z
