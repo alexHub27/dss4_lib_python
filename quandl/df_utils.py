@@ -90,6 +90,32 @@ def get_df_coint(cointLst,tickerDic,df_is):
     print "Df_shape : ",df_coint.shape
     return df_coint
 
+def get_df_coint2(cointLst,tickerDic,df_is):
+    # called in main
+    # Make df_coint
+    df_coint = pd.DataFrame(np.array(cointLst),columns=["spreadNm","stock_X","stock_Y","coefcorr","dist"
+                                                        ,"adf","const","beta"])
+    # Computing half life
+    df_coint["half_life"] = [get_half_life_from_scratch(tck,df_coint.stock_X.values[idx],df_coint.beta.values[idx],df_is) 
+                             for idx,tck in enumerate(df_coint.stock_X.values)]
+    df_coint["sector"] = [tickerDic[tck] for tck in df_coint.stock_X.values]
+    
+    df_coint = df_coint.loc[(df_coint["half_life"]>0)&(df_coint["half_life"]<60)]
+    # Compute the mean and the std per pairs
+    df_coint["stdv"] = [get_std(X,df_coint.stock_Y.values[idx],df_coint.beta.values[idx]
+                                   ,df_coint.half_life.values[idx],df_is)
+                          for idx,X in enumerate(df_coint.stock_X.values)]
+    
+    df_coint["ma"] = [get_ma(X,df_coint.stock_Y.values[idx],df_coint.beta.values[idx]
+                               ,df_coint.half_life.values[idx],df_is)
+                           for idx,X in enumerate(df_coint.stock_X.values)]
+    df_coint["lastPrice"] = [get_z(X,df_coint.stock_Y.values[idx],df_coint.beta.values[idx],df_is)[-1] 
+                             for idx,X in enumerate(df_coint.stock_X.values)]
+    df_coint["last_Zscore"] = [(lp - np.float(df_coint.ma.values[idx]))/np.float(df_coint.stdv.values[idx])
+                               for idx,lp in enumerate(df_coint.lastPrice.values)]
+    
+    print "Df_shape : ",df_coint.shape
+    return df_coin
 
 def get_risk_mngt(df_coint,sector=None,maxPair=None,maxPerSector=10,maxStd=10,maxHalfLife=60,absZ=1):
     # called in main
