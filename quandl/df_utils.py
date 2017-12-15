@@ -65,7 +65,8 @@ def get_cointLst2(corrList,df_is,autolag=None):
     print "There are {0} pairs strongly cointegrated.".format(len(cointLst))
     return cointLst
 
-def get_df_coint(cointLst,tickerDic,df_is):
+
+def get_df_coint(cointLst,tickerDic,df_is,endDate):
     # called in main
     # Make df_coint
     df_coint = pd.DataFrame(np.array(cointLst),columns=["spreadNm","stock_X","stock_Y","coefcorr","adf","const","beta"])
@@ -85,22 +86,15 @@ def get_df_coint(cointLst,tickerDic,df_is):
                              for idx,X in enumerate(df_coint.stock_X.values)]
     df_coint["last_Zscore"] = [(lp - np.float(df_coint.const.values[idx]))/np.float(df_coint.stdv.values[idx])
                                for idx,lp in enumerate(df_coint.lastPrice.values)]
+    df_tradeToday["entry_date"] = endDate
     
     return df_coint
 
 def get_df_coint2(cointLst,tickerDic,df_is):
     # called in main
-    # Make df_coint
-    df_coint = pd.DataFrame(np.array(cointLst),columns=["spreadNm","stock_X","stock_Y","coefcorr","adf","const","beta"])
-                                                        
-    # Computing half life
-    df_coint["half_life"] = [get_half_life_from_scratch(tck,df_coint.stock_X.values[idx],df_coint.beta.values[idx],df_is) 
-                             for idx,tck in enumerate(df_coint.stock_X.values)]
-    df_coint["sector"] = [tickerDic[tck] for tck in df_coint.stock_X.values]
-    
-    df_coint = df_coint.loc[(df_coint["half_life"]>0)]
+    df_coint = get_df_coint(cointLst,tickerDic,df_is)
     # Compute the mean and the std per pairs
-    df_coint["stdv"] = [get_std(X,df_coint.stock_Y.values[idx],df_coint.beta.values[idx]
+    df_coint["r_stdv"] = [get_std(X,df_coint.stock_Y.values[idx],df_coint.beta.values[idx]
                                    ,df_coint.half_life.values[idx],df_is)
                           for idx,X in enumerate(df_coint.stock_X.values)]
     
@@ -138,7 +132,7 @@ def get_risk_mngt(df_coint,sector=None,maxPerSector=10,maxPair=20,maxStd=10,maxH
     
     return df_trade
 
-def money_mngt(df_tradeToday,endDate):
+def money_mngt(df_tradeToday):
     # called in main
     df_tradeToday["timeStamp"] = endDate
     df_tradeToday["entryPrice"] = [lp for lp in df_tradeToday.lastPrice.values]
