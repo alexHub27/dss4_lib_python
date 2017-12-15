@@ -69,7 +69,7 @@ def get_cointLst2(corrList,df_is,autolag=None):
 def get_df_coint(cointLst,tickerDic,df_is,endDate):
     # called in main
     # Make df_coint
-    df_coint = pd.DataFrame(np.array(cointLst),columns=["spreadNm","stock_X","stock_Y","coefcorr","adf","const","beta"])
+    df_coint = pd.DataFrame(np.array(cointLst),columns=["spreadNm","stock_x","stock_y","coefcorr","adf","const","beta"])
                                                         
     # Computing half life
     df_coint["half_life"] = [get_half_life_from_scratch(tck,df_coint.stock_X.values[idx],df_coint.beta.values[idx],df_is) 
