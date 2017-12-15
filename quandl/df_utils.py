@@ -116,7 +116,7 @@ def get_df_coint2(cointLst,tickerDic,df_is):
     #print "Df_shape : ",df_coint.shape
     return df_coint
 
-def get_risk_mngt(df_coint,sector=None,maxPair=None,maxPerSector=10,maxStd=10,maxHalfLife=60,absZ=1):
+def get_risk_mngt(df_coint,sector=None,maxPair=20,maxPerSector=10,maxStd=10,maxHalfLife=60,absZ=1):
     # called in main
     
     # Risk management policy: Sectors
@@ -126,14 +126,17 @@ def get_risk_mngt(df_coint,sector=None,maxPair=None,maxPerSector=10,maxStd=10,ma
     else:
         pass
     
-    # Risk management policy + Signals: Limit the risk of the spread (length on hold and vol of spread)
-    q = 'half_life <= {0} and stdv <= {1} and (last_Zscore < -{2} or last_Zscore > {2})'.format(maxHalfLife,maxStd,absZ)
+    # Risk management policy : Limit the risk of the spread (length on hold and vol of spread)
+    q = 'half_life <= {0} and stdv <= {1}'.format(maxHalfLife,maxStd)
     df_trade = df_coint.query(q)
 
     # Risk management policy: Taking only the strongest pairs
     if maxPair:
-        df_trade = df_trade.sort_values(["adf","half_life"]).head(maxPair)
-                        
+        df_trade = df_trade.sort_values(["adf"]).head(maxPair)
+
+    # + Signals
+    q = 'last_Zscore < -{0} or last_Zscore > {0}'.format(absZ)
+    df_trade = df_coint.query(q)
     
     return df_trade
 
