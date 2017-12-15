@@ -16,9 +16,9 @@ def get_corrLst(df_is,tickerDic):
             tickY = df_is.columns[j]
             if tickerDic[tickX] == tickerDic[tickY]:
                 corr = np.corrcoef(df_is[tickX].values,df_is[tickY].values)[0,1]
-                dist = np.sum(np.power(df_is[tickX].values-df_is[tickY].values,2))
+                #dist = np.sum(np.power(df_is[tickX].values-df_is[tickY].values,2))
                 if corr >0.9:
-                    corrList.append([tickX,tickY,corr,dist])
+                    corrList.append([tickX,tickY,corr])#,dist
 
     print "There are {0} pairs strongly correlated.".format(len(corrList))
     return corrList
