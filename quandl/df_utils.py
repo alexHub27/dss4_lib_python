@@ -72,18 +72,18 @@ def get_df_coint(cointLst,tickerDic,df_is,endDate):
     df_coint = pd.DataFrame(np.array(cointLst),columns=["spreadNm","stock_x","stock_y","coefcorr","adf","const","beta"])
                                                         
     # Computing half life
-    df_coint["half_life"] = [get_half_life_from_scratch(tck,df_coint.stock_X.values[idx],df_coint.beta.values[idx],df_is) 
-                             for idx,tck in enumerate(df_coint.stock_X.values)]
+    df_coint["half_life"] = [get_half_life_from_scratch(tck,df_coint.stock_y.values[idx],df_coint.beta.values[idx],df_is) 
+                             for idx,tck in enumerate(df_coint.stock_x.values)]
     df_coint = df_coint.loc[df_coint["half_life"]>0]
     
-    df_coint["sector"] = [tickerDic[tck] for tck in df_coint.stock_X.values]
+    df_coint["sector"] = [tickerDic[tck] for tck in df_coint.stock_x.values]
     
     
     # Compute the mean and the std per pairs
-    df_coint["stdv"] = [std_z(X,df_coint.stock_Y.values[idx],df_coint.beta.values[idx],df_is) 
-                       for idx,X in enumerate(df_coint.stock_X.values)]
-    df_coint["last_price"] = [get_z(X,df_coint.stock_Y.values[idx],df_coint.beta.values[idx],df_is)[-1] 
-                             for idx,X in enumerate(df_coint.stock_X.values)]
+    df_coint["stdv"] = [std_z(X,df_coint.stock_y.values[idx],df_coint.beta.values[idx],df_is) 
+                       for idx,X in enumerate(df_coint.stock_x.values)]
+    df_coint["last_price"] = [get_z(X,df_coint.stock_y.values[idx],df_coint.beta.values[idx],df_is)[-1] 
+                             for idx,X in enumerate(df_coint.stock_x.values)]
     df_coint["last_zscore"] = [(lp - np.float(df_coint.const.values[idx]))/np.float(df_coint.stdv.values[idx])
                                for idx,lp in enumerate(df_coint.last_price.values)]
     df_coint["entry_date"] = endDate
