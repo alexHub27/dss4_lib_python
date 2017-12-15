@@ -53,10 +53,10 @@ def get_cointLst2(corrList,df_is,autolag=None):
     for pair in corrList:
         X1,X2 = df_is[pair[0]].values,df_is[pair[1]].values 
 
-        adf1,pval1,params1 = adfuller_alex(X2,X1)
+        adf1,pval1,params1 = adfuller_alex(y0=X2,y1=X1,autolag=autolag)
 
         if pval1<0.01 : 
-            adf2,pval2,params2 = adfuller_alex(X1,X2,autolag=autolag)
+            adf2,pval2,params2 = adfuller_alex(y0=X1,y1=X2,autolag=autolag)
             if pval2<0.01 and pval1 < pval2: # Test for strong cointegration in both side only.
                 cointLst.append(["{0}_{1}".format(pair[0],pair[1])]+pair+[pval1]+list(params1))
             elif pval2<0.01:
