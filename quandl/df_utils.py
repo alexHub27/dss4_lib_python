@@ -85,7 +85,7 @@ def get_df_coint(cointLst,tickerDic,df_is,endDate):
     df_coint["last_price"] = [get_z(X,df_coint.stock_Y.values[idx],df_coint.beta.values[idx],df_is)[-1] 
                              for idx,X in enumerate(df_coint.stock_X.values)]
     df_coint["last_zscore"] = [(lp - np.float(df_coint.const.values[idx]))/np.float(df_coint.stdv.values[idx])
-                               for idx,lp in enumerate(df_coint.lastPrice.values)]
+                               for idx,lp in enumerate(df_coint.last_price.values)]
     df_coint["entry_date"] = endDate
     print "{0}: there are {1} pairs strongly cointegrated.".format(dt.datetime.strftime(endDate,"%Y-%m-%d"),df_coint.shape[0])
     return df_coint
