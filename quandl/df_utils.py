@@ -92,8 +92,8 @@ def get_df_coint(cointLst,tickerDic,df_is):
 def get_df_coint2(cointLst,tickerDic,df_is):
     # called in main
     # Make df_coint
-    df_coint = pd.DataFrame(np.array(cointLst),columns=["spreadNm","stock_X","stock_Y","coefcorr","dist"
-                                                        ,"adf","const","beta"])
+    df_coint = pd.DataFrame(np.array(cointLst),columns=["spreadNm","stock_X","stock_Y","coefcorr","adf","const","beta"])
+                                                        
     # Computing half life
     df_coint["half_life"] = [get_half_life_from_scratch(tck,df_coint.stock_X.values[idx],df_coint.beta.values[idx],df_is) 
                              for idx,tck in enumerate(df_coint.stock_X.values)]
