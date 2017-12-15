@@ -116,7 +116,7 @@ def get_df_coint2(cointLst,tickerDic,df_is):
     #print "Df_shape : ",df_coint.shape
     return df_coint
 
-def get_risk_mngt(df_coint,sector=None,maxPair=20,maxPerSector=10,maxStd=10,maxHalfLife=60,absZ=1):
+def get_risk_mngt(df_coint,sector=None,maxPerSector=10,maxPair=20,maxStd=10,maxHalfLife=60,absZ=1):
     # called in main
     
     # Risk management policy: Sectors
