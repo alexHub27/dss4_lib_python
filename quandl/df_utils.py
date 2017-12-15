@@ -20,7 +20,7 @@ def get_corrLst(df_is,tickerDic):
                 if corr >0.9:
                     corrList.append([tickX,tickY,corr])#,dist
 
-    print "There are {0} pairs strongly correlated.".format(len(corrList))
+    #print "There are {0} pairs strongly correlated.".format(len(corrList))
     return corrList
 
 def get_cointLst(corrList,df_is):
@@ -86,7 +86,7 @@ def get_df_coint(cointLst,tickerDic,df_is):
     df_coint["last_Zscore"] = [(lp - np.float(df_coint.const.values[idx]))/np.float(df_coint.stdv.values[idx])
                                for idx,lp in enumerate(df_coint.lastPrice.values)]
     
-    print "Df_shape : ",df_coint.shape
+    #print "Df_shape : ",df_coint.shape
     return df_coint
 
 def get_df_coint2(cointLst,tickerDic,df_is):
@@ -113,7 +113,7 @@ def get_df_coint2(cointLst,tickerDic,df_is):
     df_coint["last_Zscore"] = [(lp - np.float(df_coint.ma.values[idx]))/np.float(df_coint.stdv.values[idx])
                                for idx,lp in enumerate(df_coint.lastPrice.values)]
     
-    print "Df_shape : ",df_coint.shape
+    #print "Df_shape : ",df_coint.shape
     return df_coint
 
 def get_risk_mngt(df_coint,sector=None,maxPair=None,maxPerSector=10,maxStd=10,maxHalfLife=60,absZ=1):
@@ -144,5 +144,5 @@ def money_mngt(df_tradeToday,endDate):
     df_tradeToday["typeOrder"] = [1 if z<0 else -1 for z in df_tradeToday.last_Zscore.values]
     df_tradeToday["pnl"] = df_tradeToday.lastPrice.values - df_tradeToday.entryPrice.values
     
-    print "df_tradeToday: ",df_tradeToday.shape
+    #print "df_tradeToday: ",df_tradeToday.shape
     return df_tradeToday
