@@ -98,7 +98,7 @@ def get_df_coint2(cointLst,tickerDic,df_is):
                              for idx,tck in enumerate(df_coint.stock_X.values)]
     df_coint["sector"] = [tickerDic[tck] for tck in df_coint.stock_X.values]
     
-    df_coint = df_coint.loc[(df_coint["half_life"]>0)&(df_coint["half_life"]<60)]
+    df_coint = df_coint.loc[(df_coint["half_life"]>0)]
     # Compute the mean and the std per pairs
     df_coint["stdv"] = [get_std(X,df_coint.stock_Y.values[idx],df_coint.beta.values[idx]
                                    ,df_coint.half_life.values[idx],df_is)
