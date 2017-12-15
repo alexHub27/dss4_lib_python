@@ -14,6 +14,21 @@ def get_price_dataframe(dfNm="wiki_sp500_daily_2007"):
     dfs.index = dfs.Date
     return dfs 
 
+def get_days_tuple2(dateIndex,schLst,tickerDic,startDate=None,endDate=None,w=2000):
+    if type(startDate) == str:
+        startDate= dt.datetime.strptime(startDate,"%Y-%m-%d")
+    if type(endDate) == str:
+        endDate = dt.datetime.strptime(endDate,"%Y-%m-%d")
+        
+    if not startDate or startDate<min(dateIndex):
+        startDate = min(dateIndex)
+    if not endDate or endDate>max(dateIndex):
+        endDate = max(dateIndex)
+    
+    t = [(d,d+dt.timedelta(days=w),schLst,tickerDic) for d in dateIndex 
+         if d>=startDate-dt.timedelta(days=w) and d+dt.timedelta(days=w)<=endDate ]
+    print "Period of study: {0} to {1} - {2} trading days".format(t[0][1],t[-1][1],len(t))
+    return t
 
 def get_df_data(df_data,tickerLst,endDate,startDate=None):
     if not startDate : 
