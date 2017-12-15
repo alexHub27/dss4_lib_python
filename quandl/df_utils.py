@@ -134,7 +134,7 @@ def get_risk_mngt(df_coint,sector=None,maxPerSector=10,maxPair=20,maxStd=10,maxH
 
     # + Signals
     q = 'last_Zscore < -{0} or last_Zscore > {0}'.format(absZ)
-    df_trade = df_coint.query(q)
+    df_trade = df_trade.query(q)
     
     return df_trade
 
