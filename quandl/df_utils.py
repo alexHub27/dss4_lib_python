@@ -148,5 +148,5 @@ def money_mngt(df_tradeToday,endDate):
     df_tradeToday["pnl"] = df_tradeToday.lastPrice.values - df_tradeToday.entryPrice.values
     
     #print "df_tradeToday: ",df_tradeToday.shape
-    print "{1}: there is {0} signals compliant with risk policy.".format(dt.datetime.strptime(df_tradeToday.shape[0],"%Y-%m-%d"),endDate)
+    print "{1}: there is {0} signals compliant with risk policy.".format(dt.datetime.strftime(df_tradeToday.shape[0],"%Y-%m-%d"),endDate)
     return df_tradeToday
