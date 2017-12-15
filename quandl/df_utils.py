@@ -86,7 +86,6 @@ def get_df_coint(cointLst,tickerDic,df_is):
     df_coint["last_Zscore"] = [(lp - np.float(df_coint.const.values[idx]))/np.float(df_coint.stdv.values[idx])
                                for idx,lp in enumerate(df_coint.lastPrice.values)]
     
-    #print "Df_shape : ",df_coint.shape
     return df_coint
 
 def get_df_coint2(cointLst,tickerDic,df_is):
@@ -113,7 +112,6 @@ def get_df_coint2(cointLst,tickerDic,df_is):
     df_coint["last_Zscore"] = [(lp - np.float(df_coint.ma.values[idx]))/np.float(df_coint.stdv.values[idx])
                                for idx,lp in enumerate(df_coint.lastPrice.values)]
     
-    #print "Df_shape : ",df_coint.shape
     return df_coint
 
 def get_risk_mngt(df_coint,sector=None,maxPerSector=10,maxPair=20,maxStd=10,maxHalfLife=60,absZ=1):
