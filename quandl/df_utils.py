@@ -72,8 +72,8 @@ def get_df_coint(cointLst,tickerDic,df_is,endDate):
     df_coint = pd.DataFrame(np.array(cointLst),columns=["spreadNm","stock_x","stock_y","coefcorr","adf","const","beta"])
                                                         
     # Computing half life
-    df_coint["half_life"] = [get_half_life_from_scratch(tck,df_coint.stock_y.values[idx],df_coint.beta.values[idx],df_is) 
-                             for idx,tck in enumerate(df_coint.stock_x.values)]
+    df_coint["half_life"] = [get_half_life_from_scratch(tck_x,df_coint.stock_y.values[idx],df_coint.beta.values[idx],df_is) 
+                             for idx,tck_x in enumerate(df_coint.stock_x.values)]
     df_coint = df_coint.loc[df_coint["half_life"]>0]
     
     df_coint["sector"] = [tickerDic[tck] for tck in df_coint.stock_x.values]
