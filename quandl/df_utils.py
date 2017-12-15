@@ -43,7 +43,7 @@ def get_cointLst(corrList,df_is):
             elif adf2<0.01:
                 cointLst.append(["{0}_{1}".format(pair[1],pair[0])]+[pair[1],pair[0],pair[2],pair[3],adf2]+list(r2.params))
                             
-    print "There are {0} pairs strongly cointegrated.".format(len(cointLst))
+    #print "There are {0} pairs strongly cointegrated.".format(len(cointLst))
     return cointLst
 
 def get_cointLst2(corrList,df_is,autolag=None):
