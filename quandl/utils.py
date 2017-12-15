@@ -22,7 +22,7 @@ def get_days_tuple2(dateIndex,schLst,tickerDic,startDate=None,endDate=None,w=200
         
     if not startDate or startDate-dt.timedelta(days=w)<min(dateIndex):
         startDate = min(dateIndex)
-    if not endDate or endDate+dt.timedelta(days=w)>max(dateIndex):
+    if not endDate or endDate>max(dateIndex):
         endDate = max(dateIndex)
     
     t = [(d,d+dt.timedelta(days=w),schLst,tickerDic) for d in dateIndex 
