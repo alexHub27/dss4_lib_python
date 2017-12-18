@@ -8,13 +8,19 @@ def get_tickerDic(dfNm="sp500_ticker"):
     sectors = np.unique(df_sym["GICS Sector"].values)
     return {tck:df_sym["GICS Sector"].values[idx] for idx,tck in enumerate(df_sym["Ticker symbol"].values)} 
 
+def get_tickerVol(dfv,entryDate,tickerDic):
+    d_ =  dfv.loc[dfv.Date==str(entryDate).split('T')[0]].values[0,1:]
+    tickerVol = dict((tick,d_[idx]) for idx,tick in enumerate(list(dfv.columns)[1:]) if d_[idx]<1)
+    return dict((k,tickerDic[k]) for k in tickerVol) 
+    
+    
 def get_price_dataframe(dfNm="wiki_sp500_daily_2007"):
     dfs = dk.Dataset(dfNm).get_dataframe()
     dfs["Date"] = pd.to_datetime(dfs.Date.values)
     dfs.index = dfs.Date
     return dfs 
 
-def get_days_tuple2(dateIndex,schLst,tickerDic,startDate=None,endDate=None,w=2000):
+def get_days_tuple2(dateIndex,schLst,tickerDic,dfv,startDate=None,endDate=None,w=2000):
     if type(startDate) == str:
         startDate= dt.datetime.strptime(startDate,"%Y-%m-%d")
     if type(endDate) == str:
@@ -25,7 +31,7 @@ def get_days_tuple2(dateIndex,schLst,tickerDic,startDate=None,endDate=None,w=200
     if not endDate or endDate>max(dateIndex):
         endDate = max(dateIndex)
     
-    t = [(d,d+dt.timedelta(days=w),schLst,tickerDic) for d in dateIndex 
+    t = [(d,d+dt.timedelta(days=w),schLst,get_tickerVol(dfv,d,tickerDic)) for d in dateIndex 
          if d>=startDate-dt.timedelta(days=w) and d+dt.timedelta(days=w)<=endDate ]
     print "Period of study: {0} to {1} - {2} trading days".format(t[0][1],t[-1][1],len(t))
     return t
