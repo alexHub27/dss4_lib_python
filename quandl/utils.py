@@ -36,7 +36,7 @@ def get_days_tuple2(dateIndex,schLst,tickerDic,startDate=None,endDate=None,w=200
     print "Period of study: {0} to {1} - {2} trading days".format(t[0][1],t[-1][1],len(t))
     return t
 
-def get_days_tuple_vol(dateIndex,schLst,tickerDic,dfv,startDate=None,endDate=None,w=2000):
+def get_days_tuple_vol(dateIndex,schLst,tickerDic,dfv,startDate=None,endDate=None,w=2000,tshd=1):
     if type(startDate) == str:
         startDate= dt.datetime.strptime(startDate,"%Y-%m-%d")
     if type(endDate) == str:
@@ -47,7 +47,7 @@ def get_days_tuple_vol(dateIndex,schLst,tickerDic,dfv,startDate=None,endDate=Non
     if not endDate or endDate>max(dateIndex):
         endDate = max(dateIndex)
     
-    t = [(d,d+dt.timedelta(days=w),schLst,get_tickerVol(dfv,d,tickerDic)) for d in dateIndex 
+    t = [(d,d+dt.timedelta(days=w),schLst,get_tickerVol(dfv,d,tickerDic,tshd)) for d in dateIndex 
          if d>=startDate-dt.timedelta(days=w) and d+dt.timedelta(days=w)<=endDate ]
     print "Period of study: {0} to {1} - {2} trading days".format(t[0][1],t[-1][1],len(t))
     return t
