@@ -5,8 +5,8 @@ import datetime as dt
 from statsmodels.tsa.stattools import adfuller,coint,add_constant
 from statsmodels.api import OLS
 
-from quandl.stats import coint_alex,adfuller_alex
-from quandl.spread import get_half_life_from_scratch,get_z,std_z,get_ma,get_std
+from quandlb.stats import coint_alex,adfuller_alex
+from quandlb.spread import get_half_life_from_scratch,get_z,std_z,get_ma,get_std
 
 def get_corrLst(df_is,tickerDic):
     #  called in main
