@@ -3,7 +3,7 @@ import pandas as pd
 from statsmodels.tsa.stattools import adfuller,coint,add_constant
 from statsmodels.api import OLS
 
-from quandl.utils import get_df_data
+from quandlb.utils import get_df_data
 
 
 def get_Z(df_data,ticker_X,ticker_Y,beta,endDate,startDate=None):
