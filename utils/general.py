@@ -52,7 +52,7 @@ def get_schema(lst):
             return el
         
     lstSch = [prepare_schema(el) for el in lst]
-    return [{"name":l[0],"type":l[1]} for l in lst]
+    return [{"name":l[0],"type":l[1]} for l in lstSch]
 
 def make_date_from_timedelta(d=1):
     """ Build a string from a given number of days prior today. """
