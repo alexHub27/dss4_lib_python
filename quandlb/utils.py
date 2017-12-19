@@ -7,8 +7,6 @@ def get_tickerDic(dfNm="sp500_ticker"):
     df_sym= dk.Dataset(dfNm).get_dataframe()
     return {tck:df_sym["GICS Sector"].values[idx] for idx,tck in enumerate(df_sym["Ticker symbol"].values)} 
 
-def get_tickerPrice():
-    return None 
 
 def get_tickerVol(dfv,entryDate,tickerDic,tshd=1):
     d_ =  dfv.loc[dfv.Date==str(entryDate).split('T')[0]].values[0,1:]
