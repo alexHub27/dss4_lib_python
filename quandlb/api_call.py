@@ -10,3 +10,10 @@ def get_data_from_quand(tick,start_date="2004-12-31",end_date="2017-06-30"):
 def get_dic_from_quandl(mydata):
     keys = [k.split(' - ')[-1].lower().replace(' ','').replace('.','_').replace('-','_') for k in mydata.columns]
     return [dict((keys[i],v) for i,v in enumerate(row)) for row in mydata.values]
+
+def get_keys_from_quandl():
+    # fake call to jsut get a data frame and make some transformation on it
+    tick,start_date,end_date="AAPL","2004-12-31","2005-01-30"
+    return [k.split(' - ')[-1].lower().replace(' ','').replace('.','_').replace('-','_') for k in mydata.columns]
+    
+    
