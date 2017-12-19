@@ -14,6 +14,7 @@ def get_dic_from_quandl(mydata):
 def get_keys_from_quandl():
     # fake call to jsut get a data frame and make some transformation on it
     tick,start_date,end_date="AAPL","2004-12-31","2005-01-30"
+    mydata = get_data_from_quand(tick,start_date,end_date)
     return [k.split(' - ')[-1].lower().replace(' ','').replace('.','_').replace('-','_') for k in mydata.columns]
     
     
