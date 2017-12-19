@@ -44,7 +44,15 @@ def get_soup(link,headerName=None,params=None,verify=None):
 
 def get_schema(lst):
     """ Build a standard dataiku.Dataset schema. """
-    return [{"name":l,"type":"string"} for l in lst]
+    
+    def prepare_schema(el):
+        if type(el)!= tuple:
+            return (el,"string")
+        else:
+            return el
+        
+    lstSch = [prepare_schema(el) for el in lst]
+    return [{"name":l[0],"type":l[1]} for l in lst]
 
 def make_date_from_timedelta(d=1):
     """ Build a string from a given number of days prior today. """
