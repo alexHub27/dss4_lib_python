@@ -38,7 +38,7 @@ def get_cointLst(corrList,df_is):
         adf1= adfuller(r1.resid)[1] 
         if adf1<0.01 : 
             adf2 = adfuller(r2.resid)[1]
-            if adf2<0.01 and adf1 < adf2: # Test for strong cointegration in both side only.
+            if adf2<0.1 and adf1 < adf2: # Test for strong cointegration in both side only.
                 cointLst.append(["{0}_{1}".format(pair[0],pair[1])]+pair+[adf1]+list(r1.params))
             elif adf2<0.01:
                 cointLst.append(["{0}_{1}".format(pair[1],pair[0])]+[pair[1],pair[0],pair[2],pair[3],adf2]+list(r2.params))
@@ -46,7 +46,7 @@ def get_cointLst(corrList,df_is):
     #print "There are {0} pairs strongly cointegrated.".format(len(cointLst))
     return cointLst
 
-def get_cointLst2(corrList,df_is,autolag=None):
+def get_cointLst2(corrList,df_is,autolag=None,tsh=0.01):
     # called in main
     # Test cointegration the test has to be perform on both side of the spread
     cointLst = []
@@ -55,11 +55,11 @@ def get_cointLst2(corrList,df_is,autolag=None):
 
         adf1,pval1,params1 = adfuller_alex(y0=X2,y1=X1,autolag=autolag)
 
-        if pval1<0.01 : 
+        if pval1<tsh : 
             adf2,pval2,params2 = adfuller_alex(y0=X1,y1=X2,autolag=autolag)
-            if pval2<0.01 and pval1 < pval2: # Test for strong cointegration in both side only.
+            if pval2<tsh and pval1 < pval2: # Test for strong cointegration in both side only.
                 cointLst.append(["{0}_{1}".format(pair[0],pair[1])]+pair+[pval1]+list(params1))
-            elif pval2<0.01:
+            elif pval2<tsh:
                 cointLst.append(["{0}_{1}".format(pair[1],pair[0])]+[pair[1],pair[0],pair[2],pval2]+list(params2))
                             
     #print "There are {0} pairs strongly cointegrated.".format(len(cointLst))
