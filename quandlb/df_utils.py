@@ -66,7 +66,7 @@ def get_cointLst2(corrList,df_is,autolag=None,tsh=0.01):
     return cointLst
 
 
-def get_df_coint(cointLst,tickerDic,df_is,endDate):
+def get_df_coint(cointLst,tickerDic,df_is,endDate,startDate):
     # called in main
     # Make df_coint
     df_coint = pd.DataFrame(np.array(cointLst),columns=["spreadNm","stock_x","stock_y","coefcorr","adf","const","beta"])
@@ -87,6 +87,7 @@ def get_df_coint(cointLst,tickerDic,df_is,endDate):
     df_coint["last_zscore"] = [(lp - np.float(df_coint.const.values[idx]))/np.float(df_coint.stdv.values[idx])
                                for idx,lp in enumerate(df_coint.last_price.values)]
     df_coint["entry_date"] = endDate
+    df_coint["start_date"] = startDate
     print "{0}: there are {1} pairs strongly cointegrated.".format(dt.datetime.strftime(endDate,"%Y-%m-%d"),df_coint.shape[0])
     return df_coint
 
