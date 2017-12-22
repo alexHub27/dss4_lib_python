@@ -85,3 +85,9 @@ def load_model(modNm):
 
 def get_showered(dirtyPig):
     return str(dirtyPig.encode('utf-8')).translate(None,"\r\n\t").strip(' ').decode('utf-8')
+
+def date_index_df(df,colDate):
+    # Should be added to general.utils function
+    df[colDate] = pd.to_datetime(df[colDate].values)
+    df.index = df[colDate]
+    return df
