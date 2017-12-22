@@ -1,6 +1,7 @@
 import dataiku as dk 
 import datetime as dt
 import requests as rq
+import pandas as pd
 import json
 from multiprocessing import Pool
 from bs4 import BeautifulSoup as Soup
