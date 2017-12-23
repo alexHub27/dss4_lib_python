@@ -43,10 +43,15 @@ def get_half_life_from_scratch(stockX,stockY,beta,df_is):
 
     return int(-np.log(2)/res.params[1])
 
-def get_ma(X,Y,beta,dfs,w):
-    z = get_z(X,Y,beta,dfs)
-    return np.sum(z[-w:])/float(w)
+def get_ma(Z,tr):
+    cZ,ma = np.cumsum(Z),np.zeros(Z.shape)
+    ma[tr:] = (cZ[tr:]-cZ[:-tr])/float(tr)
+    return ma
 
+def get_rstd(Z,tr):
+    rstd = np.zeros(Z.shape)
+    rstd[tr:] = [np.std(Z[i-tr:i]) for i in range(tr,Z.shape[0])]
+    return rstd
 
 def get_std(X,Y,beta,dfs,w):
     z = get_z(X,Y,beta,dfs)
