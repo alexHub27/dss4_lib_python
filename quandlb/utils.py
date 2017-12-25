@@ -56,6 +56,14 @@ def get_df_data(df_data,tickerLst,endDate,startDate=None):
         startDate = endDate - dt.timedelta(days=365*7.5)
     return df_data.loc[(df_data.index>startDate)&(df_data.index<endDate)][tickerLst]
 
-def get_end_signal(timeStamp,halfLife,fact=3):
-    return timeStamp + dt.timedelta(days=fact*halfLife)
+def get_end_signal(timeStamp,halfLife,fact=3,nbdays=100):
+    hl= timeStamp + dt.timedelta(days=fact*halfLife)
+    if nbdays:
+        maxS = get_max_signal(entry_date,nbdays=100)
+        return min(hl,maxS)
+    else:
+        return hl
+
+def get_max_signal(entry_date,nbdays=100):
+    return entry_date+dt.timedelta(days=nbdays)
 
