@@ -59,7 +59,7 @@ def get_df_data(df_data,tickerLst,endDate,startDate=None):
 def get_end_signal(timeStamp,halfLife,fact=3,nbdays=100):
     hl= timeStamp + dt.timedelta(days=fact*halfLife)
     if nbdays:
-        maxS = get_max_signal(entry_date,nbdays=100)
+        maxS = get_max_signal(timeStamp,nbdays=100)
         return min(hl,maxS)
     else:
         return hl
