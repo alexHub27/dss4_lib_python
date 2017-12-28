@@ -38,7 +38,7 @@ def get_cointLst(corrList,df_is):
         adf1= adfuller(r1.resid)[1] 
         if adf1<0.01 : 
             adf2 = adfuller(r2.resid)[1]
-            if adf2<0.1 and adf1 < adf2: # Test for strong cointegration in both side only.
+            if adf2<0.01 and adf1 < adf2: # Test for strong cointegration in both side only.
                 cointLst.append(["{0}_{1}".format(pair[0],pair[1])]+pair+[adf1]+list(r1.params))
             elif adf2<0.01:
                 cointLst.append(["{0}_{1}".format(pair[1],pair[0])]+[pair[1],pair[0],pair[2],pair[3],adf2]+list(r2.params))
