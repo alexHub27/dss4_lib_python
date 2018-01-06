@@ -48,7 +48,7 @@ def get_radf(startDate,endDate,tickX,tickY,beta,dfs):
     assert (len(rAdf)==len(Z))
     return rAdf
 
-def get_nmacd(dicTr,Zlen,f=5,s=63):
+def get_nmacd(dfs,dicTr,Zlen,f=5,s=63):
     startDate = get_startDate(dicTr['entry_date'],30)
     
     Z = get_Z(df_data=dfs,ticker_X=dicTr['stock_x'],ticker_Y=dicTr['stock_y']
