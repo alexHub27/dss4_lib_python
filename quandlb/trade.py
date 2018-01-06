@@ -2,6 +2,7 @@ import numpy as np
 import pandas as pd
 import datetime as dt
 from statsmodels.tsa.stattools import adfuller,coint,add_constant
+from quandlb.spread import get_Z,get_ma,get_rstd
 
 def get_bbsc(dicTr,Zlen,per=21):
     startDate,endDate = get_startDate(dicTr['entry_date'],15),get_end_signal(dicTr['entry_date'],dicTr['half_life'],fact=5,nbdays=100)
@@ -20,8 +21,7 @@ def stop_coint(radf):
     else: 
         return None
     
-    
-    
+  
     
 # Describing trade
 def describe_trade(dicRow):
