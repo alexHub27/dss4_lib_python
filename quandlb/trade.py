@@ -29,10 +29,10 @@ def describe_trade(dicRow):
         pos = 'long'
     else:
         pos = 'short'
-    mes= "{0} open {1} in {2} at {3} ended {4} at {5} for {6} : {7} \nsig: {8} - {9} zsc : {10} - {11}".format(dt.datetime.strftime(startDate,"%Y-%m-%d"),pos
+    mes= "{0} open {1} in {2} at {3} ended {4} at {5} for {6} : {7} \nsig: {8} - {9} zsc : {10} - {11}".format(dt.datetime.strftime(dicRow['entry_date'],"%Y-%m-%d"),pos
                                                                      ,dicRow['spreadnm'],round(dicRow['last_price'],2)
                                                                      ,dt.datetime.strftime(dicRow["exitday"],"%Y-%m-%d")
-                                                                     ,round(dicRow['exit_price'],2),round(pnl,2),reason
+                                                                     ,round(dicRow['exit_price'],2),round(dicRow["pnl"],2),dicRow["exit_reason"]
                                                                      ,round(dicRow['fs_nmacd'],2),round(dicRow['exit_fs_nmacd'],2)
                                                                      ,round(dicRow['last_zsc'],2),round(dicRow['exit_zsc'],2))
     return mes
