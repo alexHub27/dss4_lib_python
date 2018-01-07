@@ -54,7 +54,9 @@ def get_days_tuple_vol(dateIndex,schLst,tickerDic,dfv,startDate=None,endDate=Non
 def get_df_data(df_data,tickerLst,endDate,startDate=None):
     if not startDate : 
         startDate = endDate - dt.timedelta(days=365*7.5)
-    return df_data.loc[(df_data.index>=startDate)&(df_data.index<=endDate)][tickerLst]
+    up = dt.datetime.strptime(dt.datetime.strftime(startDate,'%Y-%m-%d 23:59:00'),'%Y-%m-%d %H:%M:%S')
+    down = dt.datetime.strptime(dt.datetime.strftime(startDate,'%Y-%m-%d 00:01:00'),'%Y-%m-%d %H:%M:%S')
+    return df_data.loc[(df_data.index>=down)&(df_data.index<=up)][tickerLst]
 
 def get_end_signal(timeStamp,halfLife,fact=3,nbdays=100):
     hl= timeStamp + dt.timedelta(days=fact*halfLife)
