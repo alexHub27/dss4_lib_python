@@ -50,7 +50,7 @@ def get_ma(Z,tr):
 
 def get_rstd(Z,tr):
     rstd = np.zeros(Z.shape)
-    rstd[tr:] = [np.std(Z[i+1-tr:i+1]) for i in range(tr,Z.shape[0])]
+    rstd[tr:] = [np.std(Z[itr:i]) for i in range(tr,Z.shape[0]+1)]
     return rstd
 
 def get_std(X,Y,beta,dfs,w):
