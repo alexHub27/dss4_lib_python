@@ -31,7 +31,7 @@ def get_cointLst(corrList,df_is):
         X1,X2 = df_is[pair[0]].values,df_is[pair[1]].values 
 
         x1 = add_constant(X1) 
-        x2 =add_constant(X2)
+        x2 = add_constant(X2)
         r1 = OLS(X2,x1).fit() 
         r2 = OLS(X1,x2).fit()
 
