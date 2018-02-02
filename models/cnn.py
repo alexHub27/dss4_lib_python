@@ -123,10 +123,10 @@ def evaluate_timeseries2(timeseries, window_size,spr=0.02,epochs=25, batch_size=
     model.fit(X_train, y_train, epochs=epochs, batch_size=batch_size, validation_data=(X_test, y_test),verbose=verbose)
 
     pred = model.predict(X_test)
-    print('\n\nactual', 'predicted', sep='\t')
-    for actual, predicted in zip(y_test, pred.squeeze()):
-        print(actual.squeeze(), predicted, sep='\t')
-    print('next', model.predict(q).squeeze(), sep='\t')
+    #print('\n\nactual', 'predicted', sep='\t')
+    #for actual, predicted in zip(y_test, pred.squeeze()):
+    #    print(actual.squeeze(), predicted, sep='\t')
+    #print('next', model.predict(q).squeeze(), sep='\t')
     return pred.squeeze()[-1],model.predict(q).squeeze()
 
 
