@@ -96,6 +96,38 @@ def evaluate_timeseries(timeseries, window_size):
     for actual, predicted in zip(y_test, pred.squeeze()):
         print(actual.squeeze(), predicted, sep='\t')
     print('next', model.predict(q).squeeze(), sep='\t')
+    
+    
+def evaluate_timeseries2(timeseries, window_size):
+    """Create a 1D CNN regressor to predict the next value in a `timeseries` using the preceding `window_size` elements
+    as input features and evaluate its performance.
+    :param ndarray timeseries: Timeseries data with time increasing down the rows (the leading dimension/axis).
+    :param int window_size: The number of previous timeseries values to use to predict the next.
+    """
+    filter_length = 5
+    nb_filter = 4
+    timeseries = np.atleast_2d(timeseries)
+    if timeseries.shape[0] == 1:
+        timeseries = timeseries.T       # Convert 1D vectors to 2D column vectors
+
+    nb_samples, nb_series = timeseries.shape
+    #print('\n\nTimeseries ({} samples by {} series):\n'.format(nb_samples, nb_series), timeseries)
+    model = make_timeseries_regressor(window_size=window_size, filter_length=filter_length, nb_input_series=nb_series, nb_outputs=nb_series, nb_filter=nb_filter)
+    #print('\n\nModel with input size {}, output size {}, {} conv filters of length {}'.format(model.input_shape, model.output_shape, nb_filter, filter_length))
+    #model.summary()
+
+    X, y, q = make_timeseries_instances(timeseries, window_size)
+    #print('\n\nInput features:', X, '\n\nOutput labels:', y, '\n\nQuery vector:', q, sep='\n')
+    test_size = int(0.01 * nb_samples)           # In real life you'd want to use 0.2 - 0.5
+    X_train, X_test, y_train, y_test = X[:-test_size], X[-test_size:], y[:-test_size], y[-test_size:]
+    model.fit(X_train, y_train, nb_epoch=25, batch_size=2, validation_data=(X_test, y_test))
+
+    pred = model.predict(X_test)
+    #print('\n\nactual', 'predicted', sep='\t')
+    #for actual, predicted in zip(y_test, pred.squeeze()):
+    #    print(actual.squeeze(), predicted, sep='\t')
+    #print('next', model.predict(q).squeeze(), sep='\t')
+    return model.predict(q).squeeze()
 
 
 def main():
