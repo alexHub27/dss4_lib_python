@@ -6,7 +6,7 @@ Example of using Keras to implement a 1D convolutional neural network (CNN) for 
 from __future__ import print_function, division
 
 import numpy as np
-from keras.layers import Convolution1D, Dense, MaxPooling1D, Flatten
+from keras.layers import Convolution1D,Conv1D, Dense, MaxPooling1D, Flatten
 from keras.models import Sequential
 
 
@@ -36,9 +36,9 @@ def make_timeseries_regressor(window_size, filter_length, nb_input_series=1, nb_
         # The first conv layer learns `nb_filter` filters (aka kernels), each of size ``(filter_length, nb_input_series)``.
         # Its output will have shape (None, window_size - filter_length + 1, nb_filter), i.e., for each position in
         # the input timeseries, the activation of each filter at that position.
-        Convolution1D(nb_filter=nb_filter, filter_length=filter_length, activation='relu', input_shape=(window_size, nb_input_series)),
+        Conv1D(nb_filter=nb_filter, filter_length=filter_length, activation='relu', input_shape=(window_size, nb_input_series)),
         MaxPooling1D(),     # Downsample the output of convolution by 2X.
-        Convolution1D(nb_filter=nb_filter, filter_length=filter_length, activation='relu'),
+        Conv1D(nb_filter=nb_filter, filter_length=filter_length, activation='relu'),
         MaxPooling1D(),
         Flatten(),
         Dense(nb_outputs, activation='linear'),     # For binary classification, change the activation to 'sigmoid'
