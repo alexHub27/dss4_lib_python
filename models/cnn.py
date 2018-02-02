@@ -127,7 +127,7 @@ def evaluate_timeseries2(timeseries, window_size,spr=0.02,epochs=25, batch_size=
     for actual, predicted in zip(y_test, pred.squeeze()):
         print(actual.squeeze(), predicted, sep='\t')
     print('next', model.predict(q).squeeze(), sep='\t')
-    return pred.squeeze()[-1][0],model.predict(q).squeeze()
+    return pred.squeeze()[-1],model.predict(q).squeeze()
 
 
 def main():
