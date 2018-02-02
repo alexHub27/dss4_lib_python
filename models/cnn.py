@@ -98,7 +98,7 @@ def evaluate_timeseries(timeseries, window_size):
     print('next', model.predict(q).squeeze(), sep='\t')
     
     
-def evaluate_timeseries2(timeseries, window_size,spr=0.02,nb_epoch=25, batch_size=2,):
+def evaluate_timeseries2(timeseries, window_size,spr=0.02,nb_epoch=25, batch_size=2,verbose):
     """Create a 1D CNN regressor to predict the next value in a `timeseries` using the preceding `window_size` elements
     as input features and evaluate its performance.
     :param ndarray timeseries: Timeseries data with time increasing down the rows (the leading dimension/axis).
@@ -120,7 +120,7 @@ def evaluate_timeseries2(timeseries, window_size,spr=0.02,nb_epoch=25, batch_siz
     #print('\n\nInput features:', X, '\n\nOutput labels:', y, '\n\nQuery vector:', q, sep='\n')
     test_size = int(spr * nb_samples)           # In real life you'd want to use 0.2 - 0.5
     X_train, X_test, y_train, y_test = X[:-test_size], X[-test_size:], y[:-test_size], y[-test_size:]
-    model.fit(X_train, y_train, nb_epoch=25, batch_size=2, validation_data=(X_test, y_test),verbose=0)
+    model.fit(X_train, y_train, nb_epoch=nb_epoch, batch_size=batch_size, validation_data=(X_test, y_test),verbose=verbose)
 
     pred = model.predict(X_test)
     #print('\n\nactual', 'predicted', sep='\t')
