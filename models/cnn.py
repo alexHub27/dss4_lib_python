@@ -120,7 +120,7 @@ def evaluate_timeseries2(timeseries, window_size):
     #print('\n\nInput features:', X, '\n\nOutput labels:', y, '\n\nQuery vector:', q, sep='\n')
     test_size = int(0.01 * nb_samples)           # In real life you'd want to use 0.2 - 0.5
     X_train, X_test, y_train, y_test = X[:-test_size], X[-test_size:], y[:-test_size], y[-test_size:]
-    model.fit(X_train, y_train, nb_epoch=25, batch_size=2, validation_data=(X_test, y_test))
+    model.fit(X_train, y_train, nb_epoch=25, batch_size=2, validation_data=(X_test, y_test),verbose=0)
 
     pred = model.predict(X_test)
     #print('\n\nactual', 'predicted', sep='\t')
