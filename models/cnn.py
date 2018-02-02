@@ -98,7 +98,7 @@ def evaluate_timeseries(timeseries, window_size):
     print('next', model.predict(q).squeeze(), sep='\t')
     
     
-def evaluate_timeseries2(timeseries, window_size,spr=0.02,nb_epoch=25, batch_size=2,verbose):
+def evaluate_timeseries2(timeseries, window_size,spr=0.02,nb_epoch=25, batch_size=2,verbose=0):
     """Create a 1D CNN regressor to predict the next value in a `timeseries` using the preceding `window_size` elements
     as input features and evaluate its performance.
     :param ndarray timeseries: Timeseries data with time increasing down the rows (the leading dimension/axis).
