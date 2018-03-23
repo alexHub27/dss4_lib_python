@@ -3,7 +3,7 @@ from keras.layers import Conv2D,MaxPooling2D,Activation,Dropout,Flatten,Dense,In
 
 # quick model 
 def get_model(inShape):
-    InputPitch = Input(shape=inShape+(,3))
+    InputPitch = Input(shape=inShape+(3,))
     x = Conv2D(32,(3,3),activation='relu')(InputPitch)
     x = MaxPooling2D(pool_size=(2,2))(x)
     
