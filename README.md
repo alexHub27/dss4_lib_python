@@ -3,11 +3,8 @@
 This is the shared python library of my dss instance.
 Please contact alexandre.hubert@dataiku.com for any further info.
 
-Please do not make any edit on the master branch. Create your own branch 
-and make some pull requests that I will be able to validate.
+Please do not make any edit on the master branch. 
 
-This is a new update from local to test my scenario.
+Use the remote_dev branch to make some modifications on the server.
 
-This is another modification.
-
-This a modification with the DS.
+Use the local_dev branch to make some modifications locally.
