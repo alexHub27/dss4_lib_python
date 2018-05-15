@@ -7,6 +7,11 @@ from multiprocessing import Pool
 from bs4 import BeautifulSoup as Soup
 
 
+# I hope this work
+def get_today():
+    """Return today in a string format %Y-m-%d"""
+    return dt.datetime.now().strftime('%Y-%m-%d')
+
 def assess_type(test):
     if not test or test!=test :
         return 'NULL'
